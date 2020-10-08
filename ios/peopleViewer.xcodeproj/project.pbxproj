@@ -34,6 +34,8 @@
 		07460359628649F490C66409 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF9711CF900D4EFA96C0D6FA /* Zocial.ttf */; };
 		F74B796EE79D4B96B7E0C919 /* arcade.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 608AF61A3BB14596AC365069 /* arcade.TTF */; };
 		0DC23962C32C40BE84A4B0D3 /* yoster.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1325D2587A694B7D96E8090E /* yoster.ttf */; };
+		5B3EA3587069418DB6681639 /* ARCADE_N.TTF in Resources */ = {isa = PBXBuildFile; fileRef = E807566A77A44946A35E24D1 /* ARCADE_N.TTF */; };
+		979EE6DE62184EBD8D882027 /* arcade.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7FB0E4E7D5B4CB6BCE957CC /* arcade.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +89,8 @@
 		FF9711CF900D4EFA96C0D6FA /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		608AF61A3BB14596AC365069 /* arcade.TTF */ = {isa = PBXFileReference; name = "arcade.TTF"; path = "../src/assets/fonts/arcade.TTF"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		1325D2587A694B7D96E8090E /* yoster.ttf */ = {isa = PBXFileReference; name = "yoster.ttf"; path = "../src/assets/fonts/yoster.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E807566A77A44946A35E24D1 /* ARCADE_N.TTF */ = {isa = PBXFileReference; name = "ARCADE_N.TTF"; path = "../src/assets/fonts/ARCADE_N.TTF"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A7FB0E4E7D5B4CB6BCE957CC /* arcade.ttf */ = {isa = PBXFileReference; name = "arcade.ttf"; path = "../src/assets/fonts/arcade.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +219,8 @@
 				FF9711CF900D4EFA96C0D6FA /* Zocial.ttf */,
 				608AF61A3BB14596AC365069 /* arcade.TTF */,
 				1325D2587A694B7D96E8090E /* yoster.ttf */,
+				E807566A77A44946A35E24D1 /* ARCADE_N.TTF */,
+				A7FB0E4E7D5B4CB6BCE957CC /* arcade.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -376,6 +382,8 @@
 				07460359628649F490C66409 /* Zocial.ttf in Resources */,
 				F74B796EE79D4B96B7E0C919 /* arcade.TTF in Resources */,
 				0DC23962C32C40BE84A4B0D3 /* yoster.ttf in Resources */,
+				5B3EA3587069418DB6681639 /* ARCADE_N.TTF in Resources */,
+				979EE6DE62184EBD8D882027 /* arcade.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

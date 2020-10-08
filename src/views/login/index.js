@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {styles} from './styles';
-import Input from '../../components/TextInput/index';
+import TextInput from '../../components/TextInput/index';
 
 
 class Login extends Component {
@@ -31,11 +31,13 @@ habilitarBoton(){
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.titulo}>Gamer Discover</Text>
-        <Text style={styles.subtitulo}>¡Bienvenido! Ingresá para empezar :)</Text>
-        <Image  source={require('../../assets/img/mario.png')} style={styles.img}/>
-        <Input label={'Usuario'} secure={false} style={styles.input} handle={this.handleUser}/>
-        <Input label={'Contraseña'} secure={true} style={styles.input} handle={this.handlePass}/>
+         <Image  source={require('../../assets/img/mario.png')} style={styles.img}/>
+        <Text style={styles.titulo}>Gamerpedia</Text>
+       
+        
+       
+        <TextInput label={'Usuario'} secure={false} style={styles.input} handle={this.handleUser}/>
+        <TextInput label={'Contraseña'} secure={true} style={styles.input} handle={this.handlePass}/>
         <TouchableOpacity onPress={() => {this.props.navigation.navigate("GamesList");}} style={this.state.botonHabilitado ? styles.botonLogin : styles.botonLoginInh} disabled={!this.state.botonHabilitado}>
           <Text style={styles.textoBotonLogin}>Ingresar</Text>
         </TouchableOpacity>

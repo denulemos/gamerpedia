@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { TextInput } from 'react-native-paper';
+import { Input } from 'react-native-elements';
 
-const Input = (props) => {
+const TextInput = (props) => {
   const [text, setText] = React.useState('');
 
   function textHandler(value){
@@ -10,17 +10,17 @@ const Input = (props) => {
     props.handle(value)
   }
   return (
-    <TextInput
-      label={props.label}
-      type={'outlined'}
-      value={text}
+   
+    <Input
+    value={text}
       onChangeText={text => setText(text)}
       secureTextEntry = {props.secure}
-      style= {props.style}
-      onChangeText= {textHandler}
-
-    />
+     style= {props.style}
+  placeholder={props.label}
+  onChangeText= {textHandler}
+  inputStyle={{color: 'grey'}}
+/>
   );
 };
 
-export default Input;
+export default TextInput;

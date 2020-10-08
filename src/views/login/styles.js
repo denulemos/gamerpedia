@@ -2,12 +2,14 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-	paddingTop: 50,
-	backgroundColor: 'black'
+    paddingTop: 70,
+    backgroundColor: 'black',
+    paddingLeft: 40,
+    paddingRight: 40,
   },
   botonLogin: {
     marginTop: 10,
-    backgroundColor: '#c56cf0',
+    backgroundColor: '#B53471',
     marginLeft: 70,
     marginRight: 70,
     alignContent: 'center',
@@ -26,7 +28,7 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   botonRegistro: {
-    backgroundColor: '#9c88ff',
+    backgroundColor: '#833471',
     marginLeft: 70,
     marginRight: 70,
     alignContent: 'center',
@@ -34,29 +36,28 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
   },
   img: {
-    
-    
-    width: 190,
-    height: 190,
     alignSelf: 'center',
+    width: 70,
+    height: 70,
+
     marginBottom: 20,
   },
   titulo: {
     fontFamily: 'yoster',
-    fontSize: 45,
-    alignSelf: 'center',
-    color: '#cd84f1',
+    fontSize: 40,
+    marginBottom: 45,
+
+    color: '#B53471',
+    textAlign: 'center',
   },
   subtitulo: {
     fontFamily: 'OpenSans-Regular',
     alignSelf: 'center',
-	marginBottom: 20,
-	color: 'grey'
+    marginBottom: 70,
+    color: 'grey',
   },
   input: {
-    marginLeft: 50,
-    marginRight: 50,
-    marginBottom: 10,
+    alignSelf: 'center',
     fontFamily: 'OpenSans-Light',
   },
   textoBotonRegistro: {
