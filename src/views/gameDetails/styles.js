@@ -1,48 +1,66 @@
 import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
-  itemContainer: {
-    flexDirection: 'row', //como se van a distrbuir los elementos, por row
-    marginBottom: 1,
-    padding: 10,
-    alignItems: 'center',
+  header:{
+    backgroundColor: "#474787",
+    height:200,
   },
-  itemTitle: {
-    fontSize: 20,
-    color: 'white',
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom:10,
+    alignSelf:'center',
+    position: 'absolute',
+    marginTop:130,
+    
+  },
+  name:{
+    fontSize:22,
+    color:"#FFFFFF",
+    fontWeight:'600',
+  },
+  body:{
+    marginTop:40,
+    
+  },
+  bodyContent: {
     flex: 1,
+    alignItems: 'center',
+    padding:30,
+   
+  },
+  name:{
+    fontSize:40,
+    color: "#696969",
+    fontWeight: "600",
+    fontFamily: 'yoster'
+  },
+  info:{
+    fontSize:16,
+    color: "#00BFFF",
+    marginTop:10
+  },
+  description:{
+    fontSize:16,
+    color: "#696969",
+    marginTop:10,
+    textAlign: 'center'
+  },
+  buttonContainer: {
+    marginTop:10,
+    height:45,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'left',
-    marginLeft: 10,
+    marginBottom:20,
+    width:250,
+    borderRadius:30,
+    backgroundColor: "#00BFFF",
   },
-  itemImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 0,
-  },
-  itemText: {
-    fontSize: 14,
-    textAlign: 'center',
-    marginVertical: 5,
-    color: 'white'
-  },
- 
-  itemImageDet: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    marginVertical: 10
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-  },
-  male: {
-    backgroundColor: '#778beb',
-  },
-  female: {
-    backgroundColor: '#f8a5c2',
-  },
+  container:{
+    backgroundColor: 'black',
+    flex: 1
+  }
 });

@@ -16,11 +16,7 @@ export const styles = StyleSheet.create({
     marginTop:130,
     
   },
-  name:{
-    fontSize:22,
-    color:"#FFFFFF",
-    fontWeight:'600',
-  },
+ 
   body:{
     marginTop:40,
     
@@ -32,9 +28,10 @@ export const styles = StyleSheet.create({
    
   },
   name:{
-    fontSize:28,
+    fontSize:40,
     color: "#696969",
-    fontWeight: "600"
+    fontWeight: "600",
+    fontFamily: 'yoster'
   },
   info:{
     fontSize:16,

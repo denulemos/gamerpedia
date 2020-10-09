@@ -1,46 +1,48 @@
 import React, {Component} from 'react';
 import {
   View,
-
   ActivityIndicator,
   Text,
-
+  Image,
+  TouchableOpacity
 } from 'react-native';
 import {styles} from './styles';
 
 
-class GameDetails extends Component {
+class DevDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        juego: null,
+      juego: null,
     };
   }
 
   componentDidMount() {
-    console.log(this.props.route.params.juego)
     this.setState({
       juego: this.props.route.params.juego //Tomamos los parametros del otro activity
     });
   }
 
   render() {
-    //PANTALLA LOADING
     const {juego} = this.state;
-    //juego es unos segundos null, conviene poner un loading
     if (this.state.juego == null) {
-      return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, alignSelf: 'center'}}/>;
+      return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, alignSelf: 'center'}} />;
     }
     return (
-      <View >
-       
-        
-         <Text style={styles.itemText}>{this.state.juego.name} </Text>
-
-        
-      </View>
+      <View style={styles.container}>
+      <View style={styles.header}></View>
+      <Image style={styles.avatar} source={{uri: this.state.juego.background_image}} />
+      <View style={styles.body}>
+        <View style={styles.bodyContent}>
+          <Text style={styles.name}>{this.state.juego.name}</Text>
+          
+          
+         
+        </View>
+    </View>
+  </View>
     );
   }
 }
 
-export default GameDetails;
+export default DevDetails;

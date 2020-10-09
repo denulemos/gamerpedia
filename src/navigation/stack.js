@@ -3,17 +3,19 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Routes from './routes';
+import {StyleSheet, Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+
 
 function HomeTabs() {
   return (
     <Tab.Navigator  tabBarOptions={{activeBackgroundColor:'#474787', inactiveBackgroundColor: '#474787' , activeTintColor : 'white'}}>
       <Tab.Screen  name="JuegosPedia" component={Routes.GamesList} options={{
           tabBarLabel: 'Juegos',
-          
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="space-invaders" color={'white'} size={size} />
           )
@@ -37,7 +39,8 @@ function HomeTabs() {
 function AppStack() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+      >
         <Stack.Screen
           options={{headerShown: false}}
           name="Login"
@@ -50,6 +53,8 @@ function AppStack() {
             headerStyle: {
               backgroundColor: '#474787',
             },
+            
+           
           }}
           name="GamesList"
           component={HomeTabs}

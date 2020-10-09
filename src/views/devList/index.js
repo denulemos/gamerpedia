@@ -37,51 +37,40 @@ class DevList extends Component {
   render() {
     //PANTALLA LOADING
     if (this.state.isLoading) {
-      return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, alignSelf: 'center'}}/>;
+      return (
+        <ActivityIndicator
+          size="large"
+          color="#0000ff"
+          style={{flex: 1, alignSelf: 'center'}}
+        />
+      );
     }
     return (
-      <View >
-      <FlatList 
-    
-        data={this.state.devs}
-        renderItem={({item}) => {
-          return (
-            <TouchableOpacity 
-            onPress={() => {
-              this.props.navigation.navigate('DevDetails', {dev: item},);
-            }}
-            style={{backgroundColor: 'black', paddingLeft: 10}}>
-              <View style={{flexDirection: 'row'}}>
-                <Image
-                  style={{
-                    width: 70,
-                    height: 70,
-                    borderRadius: 50,
-                    marginBottom: 10,
-                    marginRight: 30,
-                    marginTop: 10,
-                  }}
-                  source={{uri: item.image_background}}
-                />
+      <View>
+        <FlatList
+          data={this.state.devs}
+          renderItem={({item}) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  this.props.navigation.navigate('DevDetails', {dev: item});
+                }}
+                style={styles.button}>
+                <View style={styles.viewFlex}>
+                  <Image
+                    style={styles.image}
+                    source={{uri: item.image_background}}
+                  />
 
-                <View style={{flexDirection: 'column', marginTop: 30}}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontFamily: 'yoster',
-                      color: '#feca57',
-                      fontSize: 15,
-                    }}>
-                    {item.name}
-                  </Text>
-                  
+                  <View style={styles.itemName}>
+                    <Text style={styles.title}>{item.name}</Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          );
-        }}
-      />
-    </View>
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </View>
     );
   }
 }
