@@ -2,13 +2,10 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
-  
-   
   },
   botonLogin: {
     marginTop: 10,
-    backgroundColor: '#fd79a8',
+    backgroundColor: '#8854d0',
     marginLeft: 70,
     marginRight: 70,
     alignContent: 'center',
@@ -27,7 +24,7 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   botonRegistro: {
-    backgroundColor: '#e84393',
+    backgroundColor: '#a55eea',
     marginLeft: 70,
     marginRight: 70,
     alignContent: 'center',
@@ -50,8 +47,10 @@ export const styles = StyleSheet.create({
     fontFamily: 'yoster',
     fontSize: 40,
     marginBottom: 45,
-
-    color: '#e84393',
+    textShadowColor:'#585858',
+    textShadowOffset:{width: 5, height: 5},
+    textShadowRadius:10,
+    color: 'white',
     textAlign: 'center',
   },
  

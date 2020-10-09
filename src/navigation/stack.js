@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 
 function HomeTabs() {
   return (
-    <Tab.Navigator  tabBarOptions={{activeBackgroundColor:'#880e4f', inactiveBackgroundColor: '#880e4f' , activeTintColor : 'white'}}>
+    <Tab.Navigator  tabBarOptions={{activeBackgroundColor:'#474787', inactiveBackgroundColor: '#474787' , activeTintColor : 'white'}}>
       <Tab.Screen  name="JuegosPedia" component={Routes.GamesList} options={{
           tabBarLabel: 'Juegos',
           
@@ -48,7 +48,7 @@ function AppStack() {
           options={{
             title: '',
             headerStyle: {
-              backgroundColor: '#880e4f',
+              backgroundColor: '#474787',
             },
           }}
           name="GamesList"
@@ -59,7 +59,7 @@ function AppStack() {
           options={{
             title: '',
             headerStyle: {
-              backgroundColor: '#4a148c',
+              backgroundColor: '#474787',
             },
           }}
           name="DevList"
@@ -76,6 +76,38 @@ function AppStack() {
           name="PlatList"
           component={HomeTabs}
         />
+        
+        <Stack.Screen
+           options={{
+            title: '',
+            headerStyle: {
+              backgroundColor: '#474787',
+            },
+          }}
+          name="GameDetails"
+          component={Routes.GameDetails}
+        />
+         <Stack.Screen
+           options={{
+            title: '',
+            headerStyle: {
+              backgroundColor: '#474787',
+            },
+          }}
+          name="PlatDetails"
+          component={Routes.PlatDetails}
+        />
+         <Stack.Screen
+           options={{
+            title: '',
+            headerStyle: {
+              backgroundColor: '#474787',
+            },
+          }}
+          name="DevDetails"
+          component={Routes.DevDetails}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

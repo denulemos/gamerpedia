@@ -37,7 +37,7 @@ class Login extends Component {
   };
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <View style={styles.container} >
         <ImageBackground source={require('../../assets/img/wallpaper.jpg')} style={styles.image}>
         <Image
           source={require('../../assets/img/mario.png')}
@@ -74,7 +74,7 @@ class Login extends Component {
         </TouchableOpacity>
        
         </ImageBackground>
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 }

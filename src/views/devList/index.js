@@ -37,7 +37,7 @@ class DevList extends Component {
   render() {
     //PANTALLA LOADING
     if (this.state.isLoading) {
-      return <ActivityIndicator />;
+      return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, alignSelf: 'center'}}/>;
     }
     return (
       <View >
@@ -46,7 +46,11 @@ class DevList extends Component {
         data={this.state.devs}
         renderItem={({item}) => {
           return (
-            <TouchableOpacity style={{backgroundColor: 'black', paddingLeft: 10}}>
+            <TouchableOpacity 
+            onPress={() => {
+              this.props.navigation.navigate('DevDetails', {dev: item},);
+            }}
+            style={{backgroundColor: 'black', paddingLeft: 10}}>
               <View style={{flexDirection: 'row'}}>
                 <Image
                   style={{

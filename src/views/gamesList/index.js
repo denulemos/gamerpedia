@@ -36,16 +36,20 @@ class GamesList extends Component {
 
   render() {
     if (this.state.isLoading) {
-      return <ActivityIndicator />;
+      return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, alignSelf: 'center'}}/>;
     }
     return (
-      <View >
+      <View style={{backgroundColor: 'black'}}>
         <FlatList 
       
           data={this.state.juegos}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity style={{backgroundColor: 'black', paddingLeft: 10}}>
+              <TouchableOpacity 
+              onPress={() => {
+                this.props.navigation.navigate('GameDetails', {juego: item},);
+              }}
+              style={{backgroundColor: 'black', paddingLeft: 10}}>
                 <View style={{flexDirection: 'row'}}>
                   <Image
                     style={{

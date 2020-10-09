@@ -37,7 +37,7 @@ class PlatList extends Component {
   render() {
     //PANTALLA LOADING
     if (this.state.isLoading) {
-      return <ActivityIndicator />;
+      return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, alignSelf: 'center'}}/>;
     }
     return (
       <View>
@@ -46,6 +46,9 @@ class PlatList extends Component {
           renderItem={({item}) => {
             return (
               <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('PlatDetails', {plat: item},);
+              }}
                 style={{backgroundColor: 'black', paddingLeft: 10}}>
                 <View style={{flexDirection: 'row'}}>
                   <Image
