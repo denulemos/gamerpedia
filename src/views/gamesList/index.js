@@ -35,24 +35,45 @@ class GamesList extends Component {
   }
 
   render() {
-    //PANTALLA LOADING
     if (this.state.isLoading) {
       return <ActivityIndicator />;
     }
     return (
-      //iteracion por juego
-      <View>
-        <FlatList
+      <View >
+        <FlatList 
+      
           data={this.state.juegos}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity>
-                
-                <View style={{flexDirection: 'column'}}>
-                  <Text >
-                    {item.name} 
-                  </Text>
-                 
+              <TouchableOpacity style={{backgroundColor: 'black', paddingLeft: 10}}>
+                <View style={{flexDirection: 'row'}}>
+                  <Image
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: 50,
+                      marginBottom: 10,
+                      marginRight: 30,
+                      marginTop: 10,
+                    }}
+                    source={{uri: item.background_image}}
+                  />
+
+                  <View style={{flexDirection: 'column', marginTop: 30}}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontFamily: 'yoster',
+                        color: '#feca57',
+                        fontSize: 15,
+                      }}>
+                      {item.name}
+                    </Text>
+                    <Text
+                      style={{color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 12}}>
+                      Fecha de Salida : {item.released}
+                    </Text>
+                  </View>
                 </View>
               </TouchableOpacity>
             );

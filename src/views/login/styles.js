@@ -2,14 +2,13 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 70,
-    backgroundColor: 'black',
-    paddingLeft: 40,
-    paddingRight: 40,
+    
+  
+   
   },
   botonLogin: {
     marginTop: 10,
-    backgroundColor: '#B53471',
+    backgroundColor: '#fd79a8',
     marginLeft: 70,
     marginRight: 70,
     alignContent: 'center',
@@ -28,7 +27,7 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   botonRegistro: {
-    backgroundColor: '#833471',
+    backgroundColor: '#e84393',
     marginLeft: 70,
     marginRight: 70,
     alignContent: 'center',
@@ -37,39 +36,38 @@ export const styles = StyleSheet.create({
   },
   img: {
     alignSelf: 'center',
-    width: 70,
-    height: 70,
+    width: 100,
+    height: 100,
 
     marginBottom: 20,
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
   },
   titulo: {
     fontFamily: 'yoster',
     fontSize: 40,
     marginBottom: 45,
 
-    color: '#B53471',
+    color: '#e84393',
     textAlign: 'center',
   },
-  subtitulo: {
-    fontFamily: 'OpenSans-Regular',
-    alignSelf: 'center',
-    marginBottom: 70,
-    color: 'grey',
-  },
+ 
   input: {
-    alignSelf: 'center',
-    fontFamily: 'OpenSans-Light',
+    alignSelf: 'center'
   },
   textoBotonRegistro: {
-    color: 'black',
+    color: 'white',
     padding: 10,
-    fontSize: 15,
+    fontSize: 20,
     fontFamily: 'OpenSans-Regular',
   },
   textoBotonLogin: {
-    color: 'black',
+    color: 'white',
     padding: 10,
-    fontSize: 15,
+    fontSize: 20,
     fontFamily: 'OpenSans-Regular',
   },
 });

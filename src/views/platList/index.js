@@ -40,19 +40,40 @@ class PlatList extends Component {
       return <ActivityIndicator />;
     }
     return (
-      //iteracion por plataforma
       <View>
         <FlatList
           data={this.state.platforms}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity>
-                
-                <View style={{flexDirection: 'column'}}>
-                  <Text >
-                    {item.name} 
-                  </Text>
-                 
+              <TouchableOpacity
+                style={{backgroundColor: 'black', paddingLeft: 10}}>
+                <View style={{flexDirection: 'row'}}>
+                  <Image
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: 50,
+                      marginBottom: 10,
+                      marginRight: 30,
+                      marginTop: 10,
+                    }}
+                    source={{uri: item.image_background}}
+                  />
+
+                  <View style={{flexDirection: 'column', marginTop: 30}}>
+                    <Text
+                      style={{
+                        fontFamily: 'yoster',
+                        color: '#feca57',
+                        fontSize: 15,
+                      }}>
+                      {item.name}
+                    </Text>
+
+                    <Text styles={{color: 'grey'}}>
+                      Cantidad de juegos: {item.games_count}
+                    </Text>
+                  </View>
                 </View>
               </TouchableOpacity>
             );

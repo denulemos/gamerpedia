@@ -40,25 +40,44 @@ class DevList extends Component {
       return <ActivityIndicator />;
     }
     return (
-      //iteracion por dev
-      <View>
-        <FlatList
-          data={this.state.devs}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity>
-                
-                <View style={{flexDirection: 'column'}}>
-                  <Text >
-                    {item.name} 
+      <View >
+      <FlatList 
+    
+        data={this.state.devs}
+        renderItem={({item}) => {
+          return (
+            <TouchableOpacity style={{backgroundColor: 'black', paddingLeft: 10}}>
+              <View style={{flexDirection: 'row'}}>
+                <Image
+                  style={{
+                    width: 70,
+                    height: 70,
+                    borderRadius: 50,
+                    marginBottom: 10,
+                    marginRight: 30,
+                    marginTop: 10,
+                  }}
+                  source={{uri: item.image_background}}
+                />
+
+                <View style={{flexDirection: 'column', marginTop: 30}}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontFamily: 'yoster',
+                      color: '#feca57',
+                      fontSize: 15,
+                    }}>
+                    {item.name}
                   </Text>
-                 
+                  
                 </View>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
+              </View>
+            </TouchableOpacity>
+          );
+        }}
+      />
+    </View>
     );
   }
 }

@@ -1,26 +1,27 @@
 import * as React from 'react';
-import { Input } from 'react-native-elements';
+import {TextInput} from 'react-native-paper';
 
-const TextInput = (props) => {
+const Input = (props) => {
   const [text, setText] = React.useState('');
 
-  function textHandler(value){
-    
-    setText(value)
-    props.handle(value)
+  function textHandler(value) {
+    setText(value);
+    props.handle(value);
   }
   return (
-   
-    <Input
-    value={text}
-      onChangeText={text => setText(text)}
-      secureTextEntry = {props.secure}
-     style= {props.style}
-  placeholder={props.label}
-  onChangeText= {textHandler}
-  inputStyle={{color: 'grey'}}
-/>
+    <TextInput
+      value={text}
+      onChangeText={(text) => setText(text)}
+      secureTextEntry={props.secure}
+      style={{marginLeft: 50, marginRight: 50}}
+      placeholder={props.label}
+      onChangeText={textHandler}
+      inputStyle={{color: 'grey'}}
+      underlineColor= 'white'
+      
+      
+    />
   );
 };
 
-export default TextInput;
+export default Input;
