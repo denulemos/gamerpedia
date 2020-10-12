@@ -3,8 +3,8 @@ export const styles = StyleSheet.create({
  itemName:{
     fontFamily: 'yoster',
     color: '#fd79a8',
-    fontSize: 25,
-    paddingTop: 10
+    fontSize: 15,
+    textAlign: 'center'
  },
  image:{
     width: 70,
@@ -13,6 +13,16 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
     marginRight: 30,
     marginTop: 10,
- }
+ },
+ gridView: {
+   flex: 1,
+   backgroundColor: 'black'
+ },
+ itemContainer: {
+   justifyContent: 'flex-end',
+   borderRadius: 5,
+   padding: 5,
+   height: 150,
+ },
 
 });

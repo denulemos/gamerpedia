@@ -1,21 +1,21 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import {
   View,
-  FlatList,
-  ActivityIndicator,
   Text,
   TouchableOpacity,
-  Image,
-} from 'react-native';
-import {styles} from './styles';
-import GameServices from '../../services/gameService';
-
+  ImageBackground,
+  Image
+} from "react-native";
+import Loading from "../../components/Loading/index";
+import {styles} from "./styles";
+import GameServices from "../../services/gameService";
+import {FlatGrid} from "react-native-super-grid";
 class DevList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       devs: null,
-      isLoading: true,
+      isLoading: true
     };
   }
 
@@ -25,52 +25,43 @@ class DevList extends Component {
         if (results && results.data && results.data.results) {
           this.setState({
             devs: results.data.results,
-            isLoading: false,
+            isLoading: false
           });
         }
       })
       .catch((err) => {
-        console.log('Ocurrio un error!  ', err);
+        console.log("Ocurrio un error!", err);
       });
   }
 
   render() {
     //PANTALLA LOADING
     if (this.state.isLoading) {
-      return (
-        <ActivityIndicator
-          size="large"
-          color="#0000ff"
-          style={{flex: 1, alignSelf: 'center'}}
-        />
-      );
+      return <Loading />;
     }
     return (
-      <View>
-        <FlatList
-          data={this.state.devs}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.navigate('DevDetails', {dev: item});
-                }}
-                style={styles.button}>
-                <View style={styles.viewFlex}>
-                  <Image
-                    style={styles.image}
-                    source={{uri: item.image_background}}
-                  />
-
-                  <View style={styles.itemName}>
-                    <Text style={styles.title}>{item.name}</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
+      <FlatGrid
+        itemDimension={130}
+        data={this.state.devs}
+        style={styles.gridView}
+        spacing={10}
+        renderItem={({item}) => (
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate("DevDetails", {dev: item});
+            }}
+            style={[styles.itemContainer, {backgroundColor: "black"}]}
+          >
+            <ImageBackground
+              source={{uri: item.image_background}}
+              style={{flex: 1}}
+            ></ImageBackground>
+            <View style={{backgroundColor: "black"}}>
+              <Text style={styles.title}>{item.name}</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
     );
   }
 }

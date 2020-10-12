@@ -4,7 +4,7 @@ import {TextInput} from 'react-native-paper';
 const Input = (props) => {
   const [text, setText] = React.useState('');
 
-  function textHandler(value) {
+   const textHandler = (value) => {
     setText(value);
     props.handle(value);
   }

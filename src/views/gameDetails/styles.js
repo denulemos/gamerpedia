@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   header:{
-    backgroundColor: "#474787",
+    backgroundColor: "#fab1a0",
     height:200,
   },
   avatar: {
@@ -16,26 +16,48 @@ export const styles = StyleSheet.create({
     marginTop:130,
     
   },
-  name:{
-    fontSize:22,
-    color:"#FFFFFF",
-    fontWeight:'600',
-  },
+
   body:{
     marginTop:40,
     
   },
   bodyContent: {
-    flex: 1,
+    
     alignItems: 'center',
     padding:30,
    
   },
   name:{
-    fontSize:40,
-    color: "#696969",
+    fontSize:20,
+    color: "#fab1a0",
     fontWeight: "600",
     fontFamily: 'yoster'
+  },
+  datos:{
+    fontSize:15,
+    color: "#696969",
+    fontWeight: "600",
+    fontFamily: 'OpenSansRegular',
+    paddingTop: 10
+  },
+  puntuacion:{
+    fontSize:10,
+    color: "#696969",
+    fontWeight: "600",
+    fontFamily: 'OpenSansRegular',
+    paddingTop: 5
+  },
+ 
+ 
+  gridView: {
+    flex: 1,
+    backgroundColor: "black"
+  },
+  itemContainer: {
+    justifyContent: "flex-end",
+    borderRadius: 10,
+    padding: 5,
+    height: 150
   },
   info:{
     fontSize:16,

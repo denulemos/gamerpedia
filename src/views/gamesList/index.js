@@ -1,21 +1,23 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import {
   View,
   FlatList,
-  ActivityIndicator,
+  ImageBackground,
   Text,
   TouchableOpacity,
-  Image,
-} from 'react-native';
-import {styles} from './styles';
-import GameServices from '../../services/gameService';
+  Image
+} from "react-native";
+import {styles} from "./styles";
+import GameServices from "../../services/gameService";
+import {FlatGrid} from "react-native-super-grid";
+import Loading from "../../components/Loading/index";
 
 class GamesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       juegos: null,
-      isLoading: true,
+      isLoading: true
     };
   }
 
@@ -25,65 +27,47 @@ class GamesList extends Component {
         if (results && results.data && results.data.results) {
           this.setState({
             juegos: results.data.results,
-            isLoading: false,
+            isLoading: false
           });
         }
       })
       .catch((err) => {
-        console.log('Ocurrio un error!  ', err);
+        console.log("Ocurrio un error!  ", err);
       });
   }
 
   render() {
     if (this.state.isLoading) {
-      return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, alignSelf: 'center'}}/>;
+      return <Loading />;
     }
     return (
-      <View style={{backgroundColor: 'black'}}>
-        <FlatList 
-      
-          data={this.state.juegos}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity 
-              onPress={() => {
-                this.props.navigation.navigate('GameDetails', {juego: item},);
-              }}
-              style={{backgroundColor: 'black', paddingLeft: 10}}>
-                <View style={{flexDirection: 'row'}}>
-                  <Image
-                    style={{
-                      width: 70,
-                      height: 70,
-                      borderRadius: 50,
-                      marginBottom: 10,
-                      marginRight: 30,
-                      marginTop: 10,
-                    }}
-                    source={{uri: item.background_image}}
-                  />
+      <FlatGrid
+        itemDimension={130}
+        data={this.state.juegos}
+        style={styles.gridView}
+        spacing={10}
+        renderItem={({item}) => (
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate(
+                "GameDetails",
+                {juego: item},
+                TouchableOpacity
+              );
+            }}
+            style={[styles.itemContainer, {backgroundColor: "black"}]}
+          >
+            <ImageBackground
+              source={{uri: item.background_image}}
+              style={{flex: 1}}
+            ></ImageBackground>
 
-                  <View style={{flexDirection: 'column', marginTop: 30}}>
-                    <Text
-                      style={{
-                        color: 'white',
-                        fontFamily: 'yoster',
-                        color: '#feca57',
-                        fontSize: 15,
-                      }}>
-                      {item.name}
-                    </Text>
-                    <Text
-                      style={{color: 'white', fontFamily: 'OpenSans-Regular', fontSize: 12}}>
-                      Fecha de Salida : {item.released}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
+            <View>
+              <Text style={styles.itemName}>{item.name}</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
     );
   }
 }

@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   header:{
-    backgroundColor: "#474787",
+    backgroundColor: "#fd79a8",
     height:200,
   },
   avatar: {
@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   },
   name:{
     fontSize:40,
-    color: "#696969",
+    color: "#fd79a8",
     fontWeight: "600",
     fontFamily: 'yoster'
   },

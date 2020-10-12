@@ -1,7 +1,23 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet} from "react-native";
 export const styles = StyleSheet.create({
-  container:{
-      backgroundColor: 'black',
-      flex: 1
+  container: {
+    backgroundColor: "black",
+    flex: 1
+  },
+  gridView: {
+    flex: 1,
+    backgroundColor: "black"
+  },
+  itemContainer: {
+    justifyContent: "flex-end",
+    borderRadius: 5,
+    padding: 5,
+    height: 150
+  },
+  itemName: {
+    fontFamily: "yoster",
+    color: "#fab1a0",
+    fontSize: 15,
+    textAlign: 'center'
   }
 });

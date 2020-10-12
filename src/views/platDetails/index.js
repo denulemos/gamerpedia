@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import {styles} from './styles';
-
+import Loading from '../../components/Loading/index';
 
 class DevDetails extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class DevDetails extends Component {
   render() {
     const {plat} = this.state;
     if (this.state.plat == null) {
-      return <ActivityIndicator size="large" color="#0000ff" style={{flex: 1, alignSelf: 'center'}} />;
+      return <Loading/>;
     }
     return (
       <View style={styles.container}>
