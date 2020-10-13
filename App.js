@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
+import { NavigationContainer } from "@react-navigation/native";
 import { Provider as PaperProvider } from "react-native-paper";
 import AppStack from './src/navigation/stack';
-
-class App extends Component{
-  render(){
+import CustomDraw from './src/navigation/customDrawer';
+import { createDrawerNavigator } from "@react-navigation/drawer";
+export default function App(){
+  const Drawer = createDrawerNavigator();
+  
   return(
     <PaperProvider>
     
-        <AppStack/>
+    <NavigationContainer>
+          <Drawer.Navigator 
+           drawerContent={(props) => <CustomDraw {...props} />}>
+          
+            <Drawer.Screen name="Placeholder header" component={AppStack} />
+          </Drawer.Navigator>
+        
+        </NavigationContainer>
     
   </PaperProvider>
   )
    
-  }
+  
 }
-export default App;

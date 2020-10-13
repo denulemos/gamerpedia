@@ -1,14 +1,25 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
 import Routes from './routes';
+import { Platform, TouchableOpacity, Image } from "react-native";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+import menu from '../assets/img/open-menu.png';
 
-
+const getButton = ({ navigation }) => (
+  <TouchableOpacity
+    style={{ flexDirection: "row" }}
+    onPress={() => navigation.openDrawer()}
+  >
+    <Image
+      source={menu}
+      style={{ width: 25, height: 20, marginLeft: 15, marginRight: 10, tintColor: '#636e72' }}
+    />
+  </TouchableOpacity>
+);
 
 function HomeTabs() {
   return (
@@ -37,7 +48,7 @@ function HomeTabs() {
 
 function AppStack() {
   return (
-    <NavigationContainer>
+    
       <Stack.Navigator
       >
         <Stack.Screen
@@ -47,73 +58,79 @@ function AppStack() {
         />
 
         <Stack.Screen
-          options={{
+          options={(nav) => ({
             title: '',
             headerStyle: {
               backgroundColor: '#2d3436',
             },
-            
+            headerLeft: () => getButton(nav),
            
-          }}
+          })}
           name="GamesList"
           component={HomeTabs}
+         
         />
 
         <Stack.Screen
-          options={{
+          options={(nav) => ({
             title: '',
             headerStyle: {
               backgroundColor: '#2d3436',
             },
-          }}
+            headerLeft: () => getButton(nav),
+          })}
           name="DevList"
           component={HomeTabs}
         />
 
         <Stack.Screen
-          options={{
+          options={(nav) => ({
             title: '',
             headerStyle: {
               backgroundColor: '#2d3436',
             },
-          }}
+            headerLeft: () => getButton(nav),
+          })}
           name="PlatList"
           component={HomeTabs}
         />
         
         <Stack.Screen
-           options={{
+           options={(nav) => ({
             title: '',
             headerStyle: {
               backgroundColor: '#fab1a0',
             },
-          }}
+            headerLeft: () => getButton(nav),
+          })}
           name="GameDetails"
           component={Routes.GameDetails}
         />
          <Stack.Screen
-           options={{
+           options={(nav) => ({
             title: '',
             headerStyle: {
               backgroundColor: '#fd79a8',
             },
-          }}
+            headerLeft: () => getButton(nav),
+          })}
           name="PlatDetails"
           component={Routes.PlatDetails}
         />
          <Stack.Screen
-           options={{
+           options={(nav) => ({
             title: '',
             headerStyle: {
               backgroundColor: '#74b9ff',
             },
-          }}
+            headerLeft: () => getButton(nav),
+          })}
           name="DevDetails"
           component={Routes.DevDetails}
         />
 
       </Stack.Navigator>
-    </NavigationContainer>
+   
   );
 }
 

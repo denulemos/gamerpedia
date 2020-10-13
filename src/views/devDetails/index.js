@@ -22,7 +22,7 @@ class DevDetails extends Component {
 
   componentDidMount() {
     this.setState({
-      dev: this.props.route.params.dev //Tomamos los parametros del otro activity
+      dev: this.props.route.params.dev 
     });
     GameServices.getGamesForDev(this.props.route.params.dev.id)
     .then((results) => {
