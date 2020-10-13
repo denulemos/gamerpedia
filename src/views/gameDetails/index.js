@@ -1,29 +1,48 @@
 import React, {Component} from "react";
-import {View, Text, Image, TouchableOpacity} from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ImageBackground,
+  ScrollView
+} from "react-native";
 import {styles} from "./styles";
 import Loading from "../../components/Loading/index";
 import {FlatGrid} from "react-native-super-grid";
+import GameServices from "../../services/gameService";
 
 class DevDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      juego: null
+      juego: null,
+      fotos: null
     };
   }
 
   componentDidMount() {
     this.setState({
-      juego: this.props.route.params.juego //Tomamos los parametros del otro activity
+      juego: this.props.route.params.juego, //Tomamos los parametros del otro activity
     });
+    GameServices.getScreenshotGames(this.props.route.params.juego.id)
+      .then((results) => {
+        if (results && results.data && results.data.results) {
+          this.setState({
+            fotos: results.data.results
+          });
+        }
+      })
+      .catch((err) => {
+        console.log("Ocurrio un error!", err);
+      });
   }
 
   render() {
-    if (this.state.juego == null) {
+    if (this.state.juego == null || this.state.fotos == null) {
       return <Loading />;
     }
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.header}></View>
         <Image
           style={styles.avatar}
@@ -46,10 +65,41 @@ class DevDetails extends Component {
             </Text>
           </View>
           <View style={{flex: 1}}>
-            <Text style={{color: " #2d3436", backgroundColor: '#fab1a0',padding: 15,  fontFamily: 'yoster', fontSize: 18}}>Datos</Text>
+            <Text
+              style={{
+                color: " #2d3436",
+                backgroundColor: "#fab1a0",
+                padding: 15,
+                fontFamily: "yoster",
+                fontSize: 18
+              }}
+            >
+              Fotos
+            </Text>
+
+            <FlatGrid
+              itemDimension={130}
+              data={this.state.fotos}
+              style={styles.gridView}
+              spacing={10}
+              renderItem={({item}) => (
+                <View
+                  style={[styles.itemContainer, {backgroundColor: "black"}]}
+                >
+                  <ImageBackground
+                    source={{uri: item.image}}
+                    style={{flex: 1}}
+                  ></ImageBackground>
+                </View>
+              )}
+            />
           </View>
+         
         </View>
-      </View>
+       
+      
+           
+      </ScrollView>
     );
   }
 }

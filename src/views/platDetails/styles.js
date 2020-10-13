@@ -26,13 +26,13 @@ export const styles = StyleSheet.create({
     
   },
   bodyContent: {
-    flex: 1,
+ 
     alignItems: 'center',
     padding:30,
    
   },
   name:{
-    fontSize:40,
+    fontSize:30,
     color: "#fd79a8",
     fontWeight: "600",
     fontFamily: 'yoster'

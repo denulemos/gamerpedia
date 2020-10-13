@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   itemName: {
     fontFamily: "yoster",
     color: "#fab1a0",
-    fontSize: 15,
+    fontSize: 10,
     textAlign: 'center'
   }
 });

@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
     color: "#696969",
     fontWeight: "600",
     fontFamily: 'OpenSansRegular',
-    paddingTop: 10
+    
   },
   puntuacion:{
     fontSize:10,

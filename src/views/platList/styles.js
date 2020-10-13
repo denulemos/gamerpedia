@@ -3,7 +3,7 @@ export const styles = StyleSheet.create({
  itemName:{
     fontFamily: 'yoster',
     color: '#fd79a8',
-    fontSize: 15,
+    fontSize: 10,
     textAlign: 'center'
  },
  image:{
