@@ -28,11 +28,12 @@ const styles = StyleSheet.create({
     
   },
   logout: {
-    width: 30,
-    height: 30,
+    width: 20,
+    height: 20,
    
     tintColor: '#7d5fff',
-    marginLeft: 10
+    marginLeft: 10,
+    marginTop: 5,
     
   },
   drawerView: {

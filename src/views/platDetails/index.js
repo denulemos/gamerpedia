@@ -71,7 +71,7 @@ class DevDetails extends Component {
               Cantidad de juegos {this.state.plat.games_count}
             </Text>
           </View>
-          {/* {this.state.objetoPlat.description != "" ? (
+         {(this.state.objetoPlat.description != "" || this.state.objetoPlat.description != null) ? (
             <View style={{flex: 1}}>
               <Text
                 style={{
@@ -94,7 +94,7 @@ class DevDetails extends Component {
                 {this.state.objetoPlat.description}
               </Text>
             </View>
-          ) : null} */}
+          ) : null} 
 
           <View style={{flex: 1}}>
             <Text
@@ -109,32 +109,7 @@ class DevDetails extends Component {
               Juegos
             </Text>
 
-            <FlatGrid
-              itemDimension={130}
-              data={this.state.juegos}
-              style={styles.gridView}
-              spacing={10}
-              renderItem={({item}) => (
-                <View
-                  style={[styles.itemContainer, {backgroundColor: "black"}]}
-                >
-                  <ImageBackground
-                    source={{uri: item.background_image}}
-                    style={{flex: 1}}
-                  ></ImageBackground>
-
-                  <Text
-                    style={{
-                      color: "white",
-                      textAlign: "center",
-                      fontFamily: "OpenSansRegular"
-                    }}
-                  >
-                    {item.name}
-                  </Text>
-                </View>
-              )}
-            />
+            
           </View>
         </View>
       </ScrollView>

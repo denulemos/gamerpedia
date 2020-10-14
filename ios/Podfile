@@ -3,12 +3,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'peopleViewer' do
+target 'gamerpedia' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
 
-  target 'peopleViewerTests' do
+  target 'gamerpedia' do
     inherit! :complete
     # Pods for testing
   end
@@ -23,10 +23,10 @@ target 'peopleViewer' do
   end
 end
 
-target 'peopleViewer-tvOS' do
-  # Pods for peopleViewer-tvOS
+target 'gamerpedia-tvOS' do
+  # Pods for gamerpedia-tvOS
 
-  target 'peopleViewer-tvOSTests' do
+  target 'gamerpedia-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

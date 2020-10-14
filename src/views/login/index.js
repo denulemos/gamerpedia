@@ -6,10 +6,10 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  KeyboardAvoidingView,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import {styles} from './styles';
+
 import Input from '../../components/TextInput/index';
 
 class Login extends Component {
@@ -69,7 +69,9 @@ class Login extends Component {
           disabled={!this.state.botonHabilitado}>
           <Text style={styles.textoBotonLogin}>Ingresar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.botonRegistro}>
+        <TouchableOpacity  onPress={() => {
+            this.props.navigation.navigate('Registro');
+          }} style={styles.botonRegistro}>
           <Text style={styles.textoBotonRegistro}>Registrarme</Text>
         </TouchableOpacity>
        

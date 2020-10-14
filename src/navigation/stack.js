@@ -56,6 +56,11 @@ function AppStack() {
           name="Login"
           component={Routes.Login}
         />
+ <Stack.Screen
+          options={{headerShown: false}}
+          name="Registro"
+          component={Routes.Registro}
+        />
 
         <Stack.Screen
           options={(nav) => ({
