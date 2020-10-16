@@ -15,7 +15,8 @@ export const styles = StyleSheet.create({
     height: 150
   },
   itemName: {
-    fontFamily: "yoster",
+    marginTop: 10,
+    fontFamily: "OpenSansRegular",
     color: "#fab1a0",
     fontSize: 10,
     textAlign: 'center'

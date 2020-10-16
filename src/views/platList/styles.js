@@ -1,7 +1,8 @@
 import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
  itemName:{
-    fontFamily: 'yoster',
+  marginTop: 10,
+    fontFamily: 'OpenSansRegular',
     color: '#fd79a8',
     fontSize: 10,
     textAlign: 'center'

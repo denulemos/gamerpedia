@@ -5,9 +5,9 @@ export const styles = StyleSheet.create({
     flex: 1
   },
   title: {
-    color: "white",
-    fontFamily: "yoster",
+    fontFamily: "OpenSansRegular",
     color: "#74b9ff",
+    marginTop: 10,
     fontSize: 10,
     textAlign: "center"
   },

@@ -11,7 +11,7 @@ import {styles} from "./styles";
 import GameServices from "../../services/gameService";
 import {FlatGrid} from "react-native-super-grid";
 import Loading from "../../components/Loading/index";
-
+import Error from '../../components/error/index';
 class GamesList extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +32,10 @@ class GamesList extends Component {
         }
       })
       .catch((err) => {
-        console.log("Ocurrio un error!  ", err);
+        this.setState({
+          juegos: 'none',
+          isLoading: false
+        });
       });
   }
 
@@ -40,7 +43,8 @@ class GamesList extends Component {
     if (this.state.isLoading) {
       return <Loading />;
     }
-    return (
+    if (this.state.juegos != 'none'){
+       return (
       <FlatGrid
         itemDimension={130}
         data={this.state.juegos}
@@ -69,6 +73,11 @@ class GamesList extends Component {
         )}
       />
     );
+    }
+    else{
+      return <Error/>
+    }
+   
   }
 }
 

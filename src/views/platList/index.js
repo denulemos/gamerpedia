@@ -10,6 +10,7 @@ import {styles} from "./styles";
 import GameServices from "../../services/gameService";
 import Loading from "../../components/Loading/index";
 import {FlatGrid} from "react-native-super-grid";
+import Error from '../../components/error/index';
 class PlatList extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +31,11 @@ class PlatList extends Component {
         }
       })
       .catch((err) => {
-        console.log("Ocurrio un error!  ", err);
+        this.setState({
+          platforms: 'none',
+          isLoading: false
+        });
+       
       });
   }
 
@@ -38,32 +43,38 @@ class PlatList extends Component {
     //PANTALLA LOADING
     if (this.state.isLoading) {
       return <Loading />;
-    }
-    return (
-      <FlatGrid
-        itemDimension={130}
-        data={this.state.platforms}
-        style={styles.gridView}
-        spacing={10}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate("PlatDetails", {plat: item});
-            }}
-            style={[styles.itemContainer, {backgroundColor: "black"}]}
-          >
-            <ImageBackground
-              source={{uri: item.image_background}}
-              style={{flex: 1}}
+    } 
+    if (this.state.platforms != 'none'){
+      return (
+        <FlatGrid
+          itemDimension={130}
+          data={this.state.platforms}
+          style={styles.gridView}
+          spacing={10}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate("PlatDetails", {plat: item});
+              }}
+              style={[styles.itemContainer, {backgroundColor: "black"}]}
             >
-              
-            </ImageBackground>
-            <View ><Text style={styles.itemName}>{item.name}</Text></View>
-
-          </TouchableOpacity>
-        )}
-      />
-    );
+              <ImageBackground
+                source={{uri: item.image_background}}
+                style={{flex: 1}}
+              >
+                
+              </ImageBackground>
+              <View ><Text style={styles.itemName}>{item.name}</Text></View>
+  
+            </TouchableOpacity>
+          )}
+        />
+      );
+    }
+    else{
+     return <Error/>
+    }
+    
   }
 }
 
