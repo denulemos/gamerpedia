@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {View, Image, TouchableOpacity} from "react-native";
-import {Drawer, Text} from "react-native-paper";
+import {Text} from "react-native-paper";
 import styles from "./styles";
-
 import {firebase} from "../services/firebaseConfig";
 import AwesomeAlert from "react-native-awesome-alerts";
 class CustomDraw extends Component {
@@ -27,6 +26,7 @@ class CustomDraw extends Component {
 
   componentDidMount() {
     let _this = this;
+    
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         _this.setState({user: user.email});

@@ -15,6 +15,8 @@ const Input = (props) => {
       secureTextEntry={props.secure}
       style={{marginLeft: 50, marginRight: 50}}
       placeholder={props.label}
+      carretHidden={props.carret}
+      keyboardType={props.type}
       onChangeText={textHandler}
       inputStyle={{color: 'grey'}}
       underlineColor= 'white'

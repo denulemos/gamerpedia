@@ -4,33 +4,25 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  Image
 } from "react-native";
 import Loading from "../../components/Loading/index";
 import {styles} from "./styles";
 import GameServices from "../../services/gameService";
 import {FlatGrid} from "react-native-super-grid";
 import Error from '../../components/error/index';
+import FooterLoading from '../../components/footerLoading/index';
 class DevList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      devs: null,
+      devs: [],
       isLoading: true,
       page : 1
     };
   }
-  renderFooter = () => {
-    return(
-      <View style={{marginTop: 10, alignItems: 'center', marginBottom: 10}}>
-       <Loading/>
-      </View>
-    )
-  }
-  traerMasDevelopers = () =>{
-   
-  this.setState({page : this.state.page + 1})
 
+  traerDevelopers = () =>{
+   
   GameServices.getDev(this.state.page)
   .then((results) => {
     if (results && results.data && results.data.results) {
@@ -46,25 +38,13 @@ class DevList extends Component {
      
     });
   });
+  this.setState({page : this.state.page + 1})
+
   }
+
   componentDidMount() {
-    GameServices.getDev(this.state.page)
-      .then((results) => {
-        if (results && results.data && results.data.results) {
-          this.setState({
-            devs: results.data.results,
-            isLoading: false
-          });
-        }
-      })
-      .catch((err) => {
-        this.setState({
-          devs: 'none',
-          isLoading: false
-        });
-       
-      });
-      this.setState({page: 2});
+    this.traerDevelopers();
+    this.setState({isLoading: false});
   }
 
   render() {
@@ -79,9 +59,9 @@ class DevList extends Component {
         itemDimension={130}
         data={devs}
         style={styles.gridView}
-        ListFooterComponent={this.renderFooter}
+        ListFooterComponent={FooterLoading}
         onEndReachedThreshold={0.5}
-          onEndReached={this.traerMasDevelopers}
+          onEndReached={this.traerDevelopers}
         spacing={10}
         renderItem={({item}) => (
           <TouchableOpacity

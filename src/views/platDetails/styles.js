@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     
   },
   bodyContent: {
- 
+ paddingTop: 70,
     alignItems: 'center',
     padding:30,
    

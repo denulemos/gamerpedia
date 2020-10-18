@@ -33,7 +33,8 @@ export const styles = StyleSheet.create({
   },
   bodyContent: {
     alignItems: "center",
-    padding: 30
+    padding: 30,
+    paddingTop: 60
   },
   datos: {
     fontSize: 15,

@@ -5,6 +5,7 @@ import GameServices from "../../services/gameService";
 import {FlatGrid} from "react-native-super-grid";
 import Loading from "../../components/Loading/index";
 import Error from "../../components/error/index";
+import FooterLoading from "../../components/footerLoading/index";
 class GamesList extends Component {
   constructor(props) {
     super(props);
@@ -15,16 +16,7 @@ class GamesList extends Component {
     };
   }
 
-  renderFooter = () => {
-    return (
-      <View style={{marginTop: 10, alignItems: "center", marginBottom: 10}}>
-        <Loading />
-      </View>
-    );
-  };
-  traerMasJuegos = () => {
-    this.setState({page: this.state.page + 1});
-
+  traerJuegos = () => {
     GameServices.getGames(this.state.page)
       .then((results) => {
         if (results && results.data && results.data.results) {
@@ -38,25 +30,14 @@ class GamesList extends Component {
           juegos: "none"
         });
       });
+    this.setState({page: this.state.page + 1});
   };
 
   componentDidMount() {
-    GameServices.getGames(this.state.page)
-      .then((results) => {
-        if (results && results.data && results.data.results) {
-          this.setState({
-            juegos: results.data.results,
-            isLoading: false
-          });
-        }
-      })
-      .catch((err) => {
-        this.setState({
-          juegos: "none",
-          isLoading: false
-        });
-      });
-    this.setState({page: 2});
+    this.traerJuegos();
+    this.setState({
+      isLoading: false
+    });
   }
 
   render() {
@@ -69,12 +50,12 @@ class GamesList extends Component {
         <FlatGrid
           itemDimension={130}
           data={juegos}
-          ListFooterComponent={this.renderFooter}
+          ListFooterComponent={FooterLoading}
           style={styles.gridView}
           keyExtractor={(item) => item.id.toString()}
           spacing={10}
           onEndReachedThreshold={0.5}
-          onEndReached={this.traerMasJuegos}
+          onEndReached={this.traerJuegos}
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => {

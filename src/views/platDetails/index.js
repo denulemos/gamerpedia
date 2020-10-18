@@ -11,8 +11,27 @@ class DevDetails extends Component {
     this.state = {
       plat: null,
       objetoPlat: null
+    
     };
   }
+
+
+  getDescripciones = () => {
+    GameServices.getPlatformDescription(this.props.route.params.plat.id)
+    .then((results) => {
+      if (results && results.data) {
+        this.setState({
+          objetoPlat: results.data
+        });
+      }
+    })
+    .catch((err) => {
+      this.setState({
+        objetoPlat: "none"
+      });
+    });
+  };
+
 
 
   componentDidMount() {
@@ -20,19 +39,7 @@ class DevDetails extends Component {
       plat: this.props.route.params.plat //Tomamos los parametros del otro activity
     });
 
-    GameServices.getPlatformDescription(this.props.route.params.plat.id)
-      .then((results) => {
-        if (results && results.data) {
-          this.setState({
-            objetoPlat: results.data
-          });
-        }
-      })
-      .catch((err) => {
-        this.setState({
-          objetoPlat: "none"
-        });
-      });
+    this.getDescripciones();
   }
 
   render() {
@@ -43,13 +50,13 @@ class DevDetails extends Component {
     }
     if (objetoPlat != "none") {
       return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
           <View style={styles.header}></View>
           <Image
             style={styles.avatar}
             source={{uri: plat.image_background}}
           />
-          <View style={styles.body}>
+         
             <View style={styles.bodyContent}>
               <Text style={styles.name}>{plat.name}</Text>
               <Text
@@ -67,7 +74,7 @@ class DevDetails extends Component {
               <View style={{flex: 1}}>
                 <Text
                   style={{
-                    color: " #2d3436",
+                    color: "black",
                     backgroundColor: "#fd79a8",
                     padding: 15,
                     fontFamily: "yoster",
@@ -89,8 +96,8 @@ class DevDetails extends Component {
                 </Text>
               </View>
             ) : null}
-          </View>
-        </ScrollView>
+          
+        </View>
       );
     } else {
       return <Error />;

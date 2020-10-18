@@ -42,13 +42,13 @@ class DevDetails extends Component {
     }
     if (fotos != "none") {
       return (
-        <ScrollView  style={styles.container}>
+        <View  style={styles.container}>
           <View style={styles.header}></View>
           <Image
             style={styles.avatar}
             source={{uri: juego.background_image}}
           />
-          <View style={styles.body}>
+         
             <View style={styles.bodyContent}>
               <Text style={styles.name}>{this.state.juego.name}</Text>
 
@@ -88,8 +88,8 @@ class DevDetails extends Component {
                 )}
               />
             </View>
-          </View>
-        </ScrollView>
+         
+        </View>
       );
     } else {
       return <Error />;

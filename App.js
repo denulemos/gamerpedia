@@ -1,11 +1,10 @@
-import React, {Component} from "react";
+import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {Provider as PaperProvider} from "react-native-paper";
 import AppStack from "./src/navigation/stack";
 import CustomDraw from "./src/navigation/customDrawer";
-import firebase from './src/services/firebaseConfig';
-import GamesList from './src/views/gamesList/index';
 import {createDrawerNavigator} from "@react-navigation/drawer";
+
 export default function App() {
   
   const Drawer = createDrawerNavigator();

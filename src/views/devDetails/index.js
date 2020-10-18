@@ -5,6 +5,7 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
+  SectionList,
   SafeAreaView,
   ScrollView
 } from "react-native";
@@ -47,10 +48,10 @@ class DevDetails extends Component {
 
     if (juegos != "none") {
       return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
           <View style={styles.header}></View>
           <Image style={styles.avatar} source={{uri: dev.image_background}} />
-          <SafeAreaView style={styles.body}>
+          
             <View style={styles.bodyContent}>
               <Text style={styles.name}>{dev.name}</Text>
               <Text style={styles.datos}>
@@ -58,7 +59,7 @@ class DevDetails extends Component {
               </Text>
             </View>
 
-            <SafeAreaView style={{flex: 1}}>
+           
               <Text style={styles.juegosTitle}>Juegos realizados</Text>
               <FlatGrid
                 removeClippedSubviews={true}
@@ -84,9 +85,9 @@ class DevDetails extends Component {
                   </TouchableOpacity>
                 )}
               />
-            </SafeAreaView>
-          </SafeAreaView>
-        </ScrollView>
+           
+          
+        </View>
       );
     } else {
       return <Error />;

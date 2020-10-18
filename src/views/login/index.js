@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-// Dependencies
 import React, {Component} from "react";
 import {
   View,
@@ -11,7 +9,7 @@ import {
 import {styles} from "./styles";
 import Input from "../../components/TextInput/index";
 import AwesomeAlert from "react-native-awesome-alerts";
-import { firebase } from '../../services/firebaseConfig';
+import {firebase} from "../../services/firebaseConfig";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -24,25 +22,24 @@ class Login extends Component {
     };
   }
 
- 
 
   login = () => {
-  
-    console.log('llegue');
-    this.setState({mensajePopUp:'Ingresando'});
+    this.setState({mensajePopUp: "Ingresando"});
     this.showAlert();
     firebase.auth()
       .signInWithEmailAndPassword(this.state.usr, this.state.psw)
       .then((usr) => {
         this.hideAlert();
-      this.props.navigation.navigate("GamesList");
-    })
-      .catch((err) =>{
+        this.props.navigation.navigate("GamesList");
+        console.log(usr)
+      })
+      .catch((err) => {
+        console.log(err)
         this.setState({mensajePopUp: err});
         this.showAlert();
       });
   };
-  
+
   handleUser = (value) => {
     this.setState({usr: value});
     this.habilitarBoton();
@@ -56,7 +53,6 @@ class Login extends Component {
       showAlert: true
     });
   };
-
   hideAlert = () => {
     this.setState({
       showAlert: false
@@ -67,6 +63,7 @@ class Login extends Component {
       ? this.setState({botonHabilitado: true})
       : this.setState({botonHabilitado: false});
   };
+
   render() {
     const {showAlert} = this.state;
     return (
@@ -75,18 +72,14 @@ class Login extends Component {
           source={require("../../assets/img/wallpaper.jpg")}
           style={styles.image}
         >
-        <AwesomeAlert
+          <AwesomeAlert
             show={showAlert}
             showProgress={false}
-          
             message={this.state.mensajePopUp}
             closeOnTouchOutside={true}
             closeOnHardwareBackPress={false}
             showCancelButton={false}
             showConfirmButton={false}
-            
-           
-           
           />
           <Image
             source={require("../../assets/img/mario.png")}
@@ -95,11 +88,11 @@ class Login extends Component {
           <Text style={styles.titulo}>Gamerpedia</Text>
 
           <Input
-           caretHidden = {true}
+            carret={true}
             label={"Email"}
             style={styles.input}
             autoCorrect={false}
-            keyboardType="email-address"
+            type={"email-address"}
             handle={this.handleUser}
           />
           <Input
