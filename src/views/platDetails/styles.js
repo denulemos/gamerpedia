@@ -2,18 +2,18 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   header:{
     backgroundColor: "#fd79a8",
-    height:200,
+    height:100,
   },
   avatar: {
     width: 130,
     height: 130,
     borderRadius: 63,
     borderWidth: 4,
-    borderColor: "white",
+    borderColor: "#fd79a8",
     marginBottom:10,
     alignSelf:'center',
     position: 'absolute',
-    marginTop:130,
+    marginTop:30,
     
   },
   name:{

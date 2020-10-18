@@ -27,6 +27,8 @@ const getButton = ({navigation}) => (
   </TouchableOpacity>
 );
 
+
+
 function HomeTabs() {
   return (
     <Tab.Navigator
@@ -138,7 +140,7 @@ function AppStack() {
           headerStyle: {
             backgroundColor: "#fab1a0"
           },
-          headerLeft: () => getButton(nav)
+        
         })}
         name="GameDetails"
         component={Routes.GameDetails}
@@ -149,7 +151,7 @@ function AppStack() {
           headerStyle: {
             backgroundColor: "#fd79a8"
           },
-          headerLeft: () => getButton(nav)
+         
         })}
         name="PlatDetails"
         component={Routes.PlatDetails}
@@ -160,7 +162,7 @@ function AppStack() {
           headerStyle: {
             backgroundColor: "#74b9ff"
           },
-          headerLeft: () => getButton(nav)
+         
         })}
         name="DevDetails"
         component={Routes.DevDetails}

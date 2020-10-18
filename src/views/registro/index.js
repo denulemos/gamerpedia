@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-// Dependencies
 import React, {Component} from "react";
 import {
   View,
@@ -9,7 +7,6 @@ import {
   ImageBackground
 } from "react-native";
 import {styles} from "./styles";
-import auth from "@react-native-firebase/auth";
 import Input from "../../components/TextInput/index";
 import AwesomeAlert from "react-native-awesome-alerts";
 import { firebase } from '../../services/firebaseConfig';
@@ -31,52 +28,54 @@ class Registro extends Component {
   }
 
   validar = () => {
-    this.showAlertEspera();
+    let _this = this;
+    _this.showAlertEspera();
     if (this.state.psw != this.state.pswConf) {
-      this.setState({mensajePopUp: "Las contraseñas no son iguales!"});
-      this.hideAlertEspera();
-      this.showAlert();
+      _this.setState({mensajePopUp: "Las contraseñas no son iguales!"});
+      _this.hideAlertEspera();
+      _this.showAlert();
     } else {
       if (
         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-          this.state.email
+          _this.state.email
         )
       ) {
-        this.registro();
+        _this.registro();
       } else {
-        this.setState({mensajePopUp: "Ingrese un email valido"});
-        this.hideAlertEspera();
-        this.showAlert();
+        _this.setState({mensajePopUp: "Ingrese un email valido"});
+        _this.hideAlertEspera();
+        _this.showAlert();
       }
     }
   };
 
   registro = () => {
-   
+    let _this = this;
+    _this.hideAlertEspera();
    firebase.auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.psw)
       .then(() => {
        
-        this.hideAlertEspera();
-        this.showAlertOk();
+       
+        _this.showAlertOk();
         
       })
       .catch((error) => {
         if (error.code === "auth/email-already-in-use") {
-          this.setState({mensajePopUp: "Email ya registrado"});
-          this.hideAlertEspera();
-          this.showAlert();
+          _this.setState({mensajePopUp: "Email ya registrado"});
+          _this.hideAlertEspera();
+          _this.showAlert();
         }
 
         if (error.code === "auth/invalid-email") {
-          this.setState({mensajePopUp: "Email invalido"});
-          this.hideAlertEspera();
-          this.showAlert();
+          _this.setState({mensajePopUp: "Email invalido"});
+          _this.hideAlertEspera();
+          _this.showAlert();
         }
 
-        this.setState({mensajePopUp: "Ocurrió un error : " + error});
-        this.hideAlertEspera();
-        this.showAlert();
+        _this.setState({mensajePopUp:  error});
+        _this.hideAlertEspera();
+        _this.showAlert();
       });
   };
   handleUser = (value) => {
@@ -131,7 +130,7 @@ class Registro extends Component {
       : this.setState({botonHabilitado: false});
   };
   render() {
-    const {showAlert, showAlertEspera, showAlertOk} = this.state;
+    const {showAlert, showAlertEspera, showAlertOk, mensajePopUp} = this.state;
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -166,7 +165,7 @@ class Registro extends Component {
             show={showAlert}
             showProgress={false}
             title="Aviso"
-            message={this.state.mensajePopUp}
+            message={mensajePopUp}
             closeOnTouchOutside={true}
             closeOnHardwareBackPress={false}
             showCancelButton={false}
@@ -213,7 +212,19 @@ class Registro extends Component {
             }
             disabled={!this.state.botonHabilitado}
           >
-            <Text style={styles.textoBotonLogin}>Registrarme!</Text>
+            <Text style={styles.textoBotonLogin}>Registrarme</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate('Login');
+            }}
+            style={
+              styles.botonLogin
+              
+            }
+            
+          >
+            <Text style={styles.textoBotonLogin}>Volver</Text>
           </TouchableOpacity>
         </ImageBackground>
       </View>

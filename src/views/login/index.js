@@ -9,7 +9,6 @@ import {
   ImageBackground
 } from "react-native";
 import {styles} from "./styles";
-import auth from "@react-native-firebase/auth";
 import Input from "../../components/TextInput/index";
 import AwesomeAlert from "react-native-awesome-alerts";
 import { firebase } from '../../services/firebaseConfig';
@@ -35,9 +34,7 @@ class Login extends Component {
     firebase.auth()
       .signInWithEmailAndPassword(this.state.usr, this.state.psw)
       .then((usr) => {
-        // this.props.navigation.navigate("GamesList", {ID: 1});
         this.hideAlert();
-      console.log(usr);
       this.props.navigation.navigate("GamesList");
     })
       .catch((err) =>{
@@ -98,9 +95,11 @@ class Login extends Component {
           <Text style={styles.titulo}>Gamerpedia</Text>
 
           <Input
+           caretHidden = {true}
             label={"Email"}
-            secure={false}
             style={styles.input}
+            autoCorrect={false}
+            keyboardType="email-address"
             handle={this.handleUser}
           />
           <Input

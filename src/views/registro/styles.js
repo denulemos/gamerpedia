@@ -4,14 +4,14 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   botonLogin: {
-    marginTop: 10,
+    marginTop: 2,
     backgroundColor: '#FD7272',
     marginLeft: 70,
     marginRight: 70,
     alignContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   botonLoginInh: {
     marginTop: 10,
@@ -23,19 +23,10 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     marginBottom: 10,
   },
-  botonRegistro: {
-    backgroundColor: '#FC427B',
-    marginLeft: 70,
-    marginRight: 70,
-    alignContent: 'center',
-    alignItems: 'center',
-    borderRadius: 15,
-  },
   img: {
     alignSelf: 'center',
     width: 100,
     height: 100,
-
     marginBottom: 20,
   },
   image: {
@@ -57,16 +48,10 @@ export const styles = StyleSheet.create({
   input: {
     alignSelf: 'center'
   },
-  textoBotonRegistro: {
-    color: 'white',
-    padding: 10,
-    fontSize: 20,
-    fontFamily: 'OpenSans-Regular',
-  },
   textoBotonLogin: {
     color: 'white',
     padding: 10,
-    fontSize: 20,
+    fontSize: 17,
     fontFamily: 'OpenSans-Regular',
   },
 });

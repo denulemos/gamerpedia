@@ -1,25 +1,26 @@
 const axios = require("axios");
 
 var UserService = {
-  //GET
-  getGames: function () {
-    //Devuelve una promise
-    return axios.get("https://api.rawg.io/api/games");
+  getGames: function (page) {
+    return axios.get("https://api.rawg.io/api/games?page=" + page);
   },
-  getDev: function () {
-    return axios.get("https://api.rawg.io/api/developers");
+  getGamesById: function (id) {
+    return axios.get("https://api.rawg.io/api/games?id=" + id);
+  },
+  getDev: function (page) {
+    return axios.get("https://api.rawg.io/api/developers?page=" + page);
   },
   getPlataformas: function () {
     return axios.get("https://api.rawg.io/api/platforms");
   },
   getScreenshotGames: function (id) {
-    return axios.get("https://api.rawg.io/api/games/" + id + "/screenshots");
+    return axios.get("https://api.rawg.io/api/games/" + id + "/screenshots?page_size=4");
   },
   getPlatformDescription: function (id) {
     return axios.get("https://api.rawg.io/api/platforms/" + id );
   },
   getGamesForDev: function (id) {
-    return axios.get("https://api.rawg.io/api/games", {
+    return axios.get("https://api.rawg.io/api/games?page_size=9", {
       params: {
         developers: id,
       }

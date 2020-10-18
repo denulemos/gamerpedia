@@ -40,15 +40,16 @@ class PlatList extends Component {
   }
 
   render() {
+    const {isLoading, platforms} = this.state;
     //PANTALLA LOADING
-    if (this.state.isLoading) {
+    if (isLoading) {
       return <Loading />;
     } 
-    if (this.state.platforms != 'none'){
+    if (platforms != 'none'){
       return (
         <FlatGrid
           itemDimension={130}
-          data={this.state.platforms}
+          data={platforms}
           style={styles.gridView}
           spacing={10}
           renderItem={({item}) => (

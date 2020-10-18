@@ -60,13 +60,13 @@ export const styles = StyleSheet.create({
   textoBotonRegistro: {
     color: 'white',
     padding: 10,
-    fontSize: 20,
+    fontSize: 17,
     fontFamily: 'OpenSans-Regular',
   },
   textoBotonLogin: {
     color: 'white',
     padding: 10,
-    fontSize: 20,
+    fontSize: 17,
     fontFamily: 'OpenSans-Regular',
   },
 });

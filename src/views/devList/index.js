@@ -16,12 +16,39 @@ class DevList extends Component {
     super(props);
     this.state = {
       devs: null,
-      isLoading: true
+      isLoading: true,
+      page : 1
     };
   }
+  renderFooter = () => {
+    return(
+      <View style={{marginTop: 10, alignItems: 'center', marginBottom: 10}}>
+       <Loading/>
+      </View>
+    )
+  }
+  traerMasDevelopers = () =>{
+   
+  this.setState({page : this.state.page + 1})
 
+  GameServices.getDev(this.state.page)
+  .then((results) => {
+    if (results && results.data && results.data.results) {
+      this.setState({
+        devs: this.state.devs.concat(results.data.results),
+        
+      });
+    }
+  })
+  .catch((err) => {
+    this.setState({
+      juegos: 'none',
+     
+    });
+  });
+  }
   componentDidMount() {
-    GameServices.getDev()
+    GameServices.getDev(this.state.page)
       .then((results) => {
         if (results && results.data && results.data.results) {
           this.setState({
@@ -37,19 +64,24 @@ class DevList extends Component {
         });
        
       });
+      this.setState({page: 2});
   }
 
   render() {
-    //PANTALLA LOADING
-    if (this.state.isLoading) {
+    const {isLoading, devs} = this.state;
+    
+    if (isLoading) {
       return <Loading />;
     }
-    if (this.state.devs != 'none' ){
+    if (devs != 'none' ){
        return (
       <FlatGrid
         itemDimension={130}
-        data={this.state.devs}
+        data={devs}
         style={styles.gridView}
+        ListFooterComponent={this.renderFooter}
+        onEndReachedThreshold={0.5}
+          onEndReached={this.traerMasDevelopers}
         spacing={10}
         renderItem={({item}) => (
           <TouchableOpacity

@@ -2,22 +2,34 @@ import {StyleSheet} from "react-native";
 export const styles = StyleSheet.create({
   header: {
     backgroundColor: "#74b9ff",
-    height: 200
+    height: 100
   },
   avatar: {
     width: 130,
     height: 130,
     borderRadius: 63,
     borderWidth: 4,
-    borderColor: "white",
+    borderColor: "#74b9ff",
     marginBottom: 10,
     alignSelf: "center",
     position: "absolute",
-    marginTop: 130
+    marginTop: 30
   },
 
   body: {
     marginTop: 40
+  },
+  itemTitle:{
+    color: "white",
+    textAlign: "center",
+    fontFamily: "OpenSansRegular"
+  },
+  juegosTitle:{
+    color: "#2d3436",
+    backgroundColor: "#74b9ff",
+    padding: 15,
+    fontFamily: "yoster",
+    fontSize: 18
   },
   bodyContent: {
     alignItems: "center",

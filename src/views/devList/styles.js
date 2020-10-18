@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     fontFamily: "OpenSansRegular",
     color: "#74b9ff",
     marginTop: 10,
-    fontSize: 10,
+    fontSize: 12,
     textAlign: "center"
   },
   gridView: {

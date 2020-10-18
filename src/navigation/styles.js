@@ -12,10 +12,11 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   logoclose: {
-    width: 30,
-    marginTop: 10,
-    height: 30,
-    marginLeft: 130,
+    width: 20,
+marginTop: 10,
+marginRight: 10, 
+    height: 20,
+    alignSelf: 'flex-end',
     tintColor: 'white',
     transform: [{rotateZ: '45deg'}]
   },

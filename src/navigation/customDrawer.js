@@ -1,55 +1,76 @@
 import React, {Component} from "react";
-import {ScrollView, View, Image, TouchableOpacity} from "react-native";
+import {View, Image, TouchableOpacity} from "react-native";
 import {Drawer, Text} from "react-native-paper";
 import styles from "./styles";
-import {DrawerActions} from "@react-navigation/native";
+
 import {firebase} from "../services/firebaseConfig";
+import AwesomeAlert from "react-native-awesome-alerts";
 class CustomDraw extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "Gamerpedia"
+      user: null,
+      showAlert: false
     };
   }
+  showAlert = () => {
+    this.setState({
+      showAlert: true
+    });
+  };
+
+  hideAlert = () => {
+    this.setState({
+      showAlert: false
+    });
+  };
 
   componentDidMount() {
+    let _this = this;
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        this.setState({user: user.email});
+        _this.setState({user: user.email});
       } else {
-        console.log("nope");
+        _this.setState({user: "Gamerpedia"});
       }
     });
   }
 
+  logout = () => {
+    let _this = this;
+    _this.showAlert();
+    firebase
+      .auth()
+      .signOut()
+      .then(function () {
+      
+       _this.props.navigation.navigate("Login");
+       
+      })
+      .catch(function (error) {
+        
+      });
+      _this.hideAlert();
+  };
+
   render() {
+    const {showAlert} = this.state;
     return (
       <View style={{backgroundColor: "black", flex: 1}}>
+        <AwesomeAlert
+          show={showAlert}
+          showProgress={false}
+          message="Cerrando Sesion"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={false}
+        />
         <View
           style={{
-            backgroundColor: "#4b4b4b",
-            flexDirection: "row",
-            paddingBottom: 50,
-            paddingTop: 50
+            backgroundColor: "#4b4b4b"
           }}
         >
-          <Image
-            style={styles.user}
-            source={require("../assets/img/user.png")}
-          />
-          <Text
-            style={{
-              color: "white",
-              alignSelf: "flex-end",
-              padding: 5,
-              fontSize: 15,
-              paddingLeft: 10,
-              paddingBottom: 10,
-              fontFamily: "yoster"
-            }}
-          >
-            {this.state.user}
-          </Text>
           <TouchableOpacity
             onPress={() => {
               this.props.navigation.closeDrawer();
@@ -61,8 +82,37 @@ class CustomDraw extends Component {
             />
           </TouchableOpacity>
         </View>
+        <View
+          style={{
+            backgroundColor: "#4b4b4b",
+            flexDirection: "row",
+            paddingBottom: 50,
+            paddingTop: 40
+          }}
+        >
+          <Image
+            style={styles.user}
+            source={require("../assets/img/user.png")}
+          />
+          <Text
+            style={{
+              color: "white",
+              alignSelf: "flex-end",
+              padding: 5,
+              fontSize: 12,
+              paddingLeft: 10,
+              paddingBottom: 13,
+              fontFamily: "yoster"
+            }}
+          >
+            {this.state.user}
+          </Text>
+        </View>
 
         <TouchableOpacity
+          onPress={() => {
+            this.logout();
+          }}
           style={{
             flexDirection: "row",
             padding: 15,

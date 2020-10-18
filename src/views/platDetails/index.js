@@ -10,14 +10,12 @@ class DevDetails extends Component {
     super(props);
     this.state = {
       plat: null,
-      objetoPlat: null,
-      juegos: null
+      objetoPlat: null
     };
   }
 
-  componentDidMount() {
-   
 
+  componentDidMount() {
     this.setState({
       plat: this.props.route.params.plat //Tomamos los parametros del otro activity
     });
@@ -38,20 +36,22 @@ class DevDetails extends Component {
   }
 
   render() {
-    if (this.state.objetoPlat == null && this.state.juegos == null) {
+    const {plat, objetoPlat} = this.state;
+
+    if (objetoPlat == null ) {
       return <Loading />;
     }
-    if (this.state.objetoPlat != "none") {
+    if (objetoPlat != "none") {
       return (
         <ScrollView style={styles.container}>
           <View style={styles.header}></View>
           <Image
             style={styles.avatar}
-            source={{uri: this.state.plat.image_background}}
+            source={{uri: plat.image_background}}
           />
           <View style={styles.body}>
             <View style={styles.bodyContent}>
-              <Text style={styles.name}>{this.state.plat.name}</Text>
+              <Text style={styles.name}>{plat.name}</Text>
               <Text
                 style={{
                   color: "white",
@@ -59,11 +59,11 @@ class DevDetails extends Component {
                   fontSize: 15
                 }}
               >
-                Cantidad de juegos {this.state.plat.games_count}
+                Cantidad de juegos {plat.games_count}
               </Text>
             </View>
-            {this.state.objetoPlat.description != "" ||
-            this.state.objetoPlat.description != null ? (
+            {objetoPlat.description != "" ||
+            objetoPlat.description != null ? (
               <View style={{flex: 1}}>
                 <Text
                   style={{
@@ -83,12 +83,12 @@ class DevDetails extends Component {
                     fontFamily: "OpenSansRegular"
                   }}
                 >
-                 {this.state.objetoPlat.description}
+                  {objetoPlat.description == ""
+                    ? "No hay descripcion disponible para esta plataforma por el momento :("
+                    : objetoPlat.description.replace(/(<([^>]+)>)/ig, '')}
                 </Text>
               </View>
             ) : null}
-
-          
           </View>
         </ScrollView>
       );

@@ -1,10 +1,11 @@
 import React, {Component} from "react";
-import {View, Text, Image, ImageBackground, ScrollView} from "react-native";
+import {View, Text, Image, ImageBackground, ScrollView } from "react-native";
 import {styles} from "./styles";
 import Loading from "../../components/Loading/index";
 import {FlatGrid} from "react-native-super-grid";
 import GameServices from "../../services/gameService";
 import Error from "../../components/error/index";
+
 
 class DevDetails extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class DevDetails extends Component {
       fotos: null
     };
   }
-
+ 
   componentDidMount() {
     this.setState({
       juego: this.props.route.params.juego //Tomamos los parametros del otro activity
@@ -35,49 +36,44 @@ class DevDetails extends Component {
   }
 
   render() {
-    if (this.state.juego == null || this.state.fotos == null) {
+    const {juego, fotos} = this.state;
+    if (juego == null || fotos == null) {
       return <Loading />;
     }
-    if (this.state.fotos != "none") {
+    if (fotos != "none") {
       return (
-        <ScrollView style={styles.container}>
+        <ScrollView  style={styles.container}>
           <View style={styles.header}></View>
           <Image
             style={styles.avatar}
-            source={{uri: this.state.juego.background_image}}
+            source={{uri: juego.background_image}}
           />
           <View style={styles.body}>
             <View style={styles.bodyContent}>
               <Text style={styles.name}>{this.state.juego.name}</Text>
 
               <Text style={styles.datos}>
-                Fecha de Salida {this.state.juego.released}
+                Fecha de Salida {juego.released}
               </Text>
 
               <Text style={styles.datos}>
-                Rating General {this.state.juego.rating}
+                Rating General {juego.rating}
               </Text>
 
               <Text style={styles.puntuacion}>
-                ({this.state.juego.ratings_count} puntuaciones)
+                ({juego.ratings_count} puntuaciones)
               </Text>
             </View>
             <View style={{flex: 1}}>
               <Text
-                style={{
-                  color: " #2d3436",
-                  backgroundColor: "#fab1a0",
-                  padding: 15,
-                  fontFamily: "yoster",
-                  fontSize: 18
-                }}
+                style={styles.fotosContainer}
               >
                 Fotos
               </Text>
 
               <FlatGrid
                 itemDimension={130}
-                data={this.state.fotos}
+                data={fotos}
                 style={styles.gridView}
                 spacing={10}
                 renderItem={({item}) => (

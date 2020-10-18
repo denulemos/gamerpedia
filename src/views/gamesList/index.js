@@ -1,28 +1,47 @@
 import React, {Component} from "react";
-import {
-  View,
-  FlatList,
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-  Image
-} from "react-native";
+import {View, ImageBackground, Text, TouchableOpacity} from "react-native";
 import {styles} from "./styles";
 import GameServices from "../../services/gameService";
 import {FlatGrid} from "react-native-super-grid";
 import Loading from "../../components/Loading/index";
-import Error from '../../components/error/index';
+import Error from "../../components/error/index";
 class GamesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      juegos: null,
-      isLoading: true
+      juegos: [],
+      isLoading: true,
+      page: 1
     };
   }
 
+  renderFooter = () => {
+    return (
+      <View style={{marginTop: 10, alignItems: "center", marginBottom: 10}}>
+        <Loading />
+      </View>
+    );
+  };
+  traerMasJuegos = () => {
+    this.setState({page: this.state.page + 1});
+
+    GameServices.getGames(this.state.page)
+      .then((results) => {
+        if (results && results.data && results.data.results) {
+          this.setState({
+            juegos: this.state.juegos.concat(results.data.results)
+          });
+        }
+      })
+      .catch((err) => {
+        this.setState({
+          juegos: "none"
+        });
+      });
+  };
+
   componentDidMount() {
-    GameServices.getGames()
+    GameServices.getGames(this.state.page)
       .then((results) => {
         if (results && results.data && results.data.results) {
           this.setState({
@@ -33,51 +52,55 @@ class GamesList extends Component {
       })
       .catch((err) => {
         this.setState({
-          juegos: 'none',
+          juegos: "none",
           isLoading: false
         });
       });
+    this.setState({page: 2});
   }
 
   render() {
-    if (this.state.isLoading) {
+    const {juegos, isLoading} = this.state;
+    if (isLoading) {
       return <Loading />;
     }
-    if (this.state.juegos != 'none'){
-       return (
-      <FlatGrid
-        itemDimension={130}
-        data={this.state.juegos}
-        style={styles.gridView}
-        spacing={10}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate(
-                "GameDetails",
-                {juego: item},
-                TouchableOpacity
-              );
-            }}
-            style={[styles.itemContainer, {backgroundColor: "black"}]}
-          >
-            <ImageBackground
-              source={{uri: item.background_image}}
-              style={{flex: 1}}
-            ></ImageBackground>
+    if (juegos != "none") {
+      return (
+        <FlatGrid
+          itemDimension={130}
+          data={juegos}
+          ListFooterComponent={this.renderFooter}
+          style={styles.gridView}
+          keyExtractor={(item) => item.id.toString()}
+          spacing={10}
+          onEndReachedThreshold={0.5}
+          onEndReached={this.traerMasJuegos}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate(
+                  "GameDetails",
+                  {juego: item},
+                  TouchableOpacity
+                );
+              }}
+              style={[styles.itemContainer, {backgroundColor: "black"}]}
+            >
+              <ImageBackground
+                source={{uri: item.background_image}}
+                style={{flex: 1}}
+              ></ImageBackground>
 
-            <View>
-              <Text style={styles.itemName}>{item.name}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
-    );
+              <View>
+                <Text style={styles.itemName}>{item.name}</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      );
+    } else {
+      return <Error />;
     }
-    else{
-      return <Error/>
-    }
-   
   }
 }
 

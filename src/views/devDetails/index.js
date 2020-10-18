@@ -4,13 +4,15 @@ import {
   Text,
   Image,
   ImageBackground,
+  TouchableOpacity,
+  SafeAreaView,
   ScrollView
 } from "react-native";
 import {styles} from "./styles";
 import Loading from "../../components/Loading/index";
 import {FlatGrid} from "react-native-super-grid";
 import GameServices from "../../services/gameService";
-import Error from '../../components/error/index';
+import Error from "../../components/error/index";
 class DevDetails extends Component {
   constructor(props) {
     super(props);
@@ -20,86 +22,75 @@ class DevDetails extends Component {
     };
   }
 
-
   componentDidMount() {
     this.setState({
-      dev: this.props.route.params.dev 
+      dev: this.props.route.params.dev
     });
     GameServices.getGamesForDev(this.props.route.params.dev.id)
-    .then((results) => {
-      if (results && results.data && results.data.results) {
-        this.setState({
-          juegos: results.data.results
-        });
-       
-      }
-    })
-    .catch((err) => {
-      this.setState({juegos: 'none'})
-     
-     
-    });
+      .then((results) => {
+        if (results && results.data && results.data.results) {
+          this.setState({
+            juegos: results.data.results
+          });
+        }
+      })
+      .catch((err) => {
+        this.setState({juegos: "none"});
+      });
   }
 
   render() {
-    if (this.state.juegos == null) {
+    const {juegos, dev} = this.state;
+    if (juegos == null) {
       return <Loading />;
     }
-    
-    if(this.state.juegos != 'none'){
+
+    if (juegos != "none") {
       return (
         <ScrollView style={styles.container}>
           <View style={styles.header}></View>
-          <Image
-            style={styles.avatar}
-            source={{uri: this.state.dev.image_background}}
-          />
-          <View style={styles.body}>
+          <Image style={styles.avatar} source={{uri: dev.image_background}} />
+          <SafeAreaView style={styles.body}>
             <View style={styles.bodyContent}>
-              <Text style={styles.name}>{this.state.dev.name}</Text>
+              <Text style={styles.name}>{dev.name}</Text>
               <Text style={styles.datos}>
-                Cantidad de juegos {this.state.dev.games_count}
+                Cantidad de juegos {dev.games_count}
               </Text>
             </View>
-            <View style={{flex: 1}}>
-              <Text
-                style={{
-                  color: " #2d3436",
-                  backgroundColor: "#74b9ff",
-                  padding: 15,
-                  fontFamily: "yoster",
-                  fontSize: 18
-                }}
-              >
-                Juegos realizados
-              </Text>
+
+            <SafeAreaView style={{flex: 1}}>
+              <Text style={styles.juegosTitle}>Juegos realizados</Text>
               <FlatGrid
+                removeClippedSubviews={true}
                 itemDimension={130}
                 data={this.state.juegos}
                 style={styles.gridView}
                 spacing={10}
                 renderItem={({item}) => (
-                  <View
+                  <TouchableOpacity
                     style={[styles.itemContainer, {backgroundColor: "black"}]}
+                    onPress={() => {
+                      this.props.navigation.navigate("GameDetails", {
+                        juego: item
+                      });
+                    }}
                   >
                     <ImageBackground
                       source={{uri: item.background_image}}
                       style={{flex: 1}}
                     ></ImageBackground>
-                   
-                   <Text style={{color:'white', textAlign: 'center', fontFamily: 'OpenSansRegular'}}>{item.name}</Text>
-                  </View>
+
+                    <Text style={styles.itemTitle}>{item.name}</Text>
+                  </TouchableOpacity>
                 )}
               />
-            </View>
-          </View>
+            </SafeAreaView>
+          </SafeAreaView>
         </ScrollView>
       );
+    } else {
+      return <Error />;
     }
-    else{
-      return <Error/>
-    }
-    
   }
 }
 

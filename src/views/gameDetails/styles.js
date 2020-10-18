@@ -2,18 +2,18 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   header:{
     backgroundColor: "#fab1a0",
-    height:200,
+    height:100,
   },
   avatar: {
     width: 130,
     height: 130,
     borderRadius: 63,
     borderWidth: 4,
-    borderColor: "white",
+    borderColor: "#fab1a0",
     marginBottom:10,
     alignSelf:'center',
     position: 'absolute',
-    marginTop:130,
+    marginTop:30,
     
   },
 
@@ -32,6 +32,13 @@ export const styles = StyleSheet.create({
     color: "#fab1a0",
     fontWeight: "600",
     fontFamily: 'yoster'
+  },
+  fotosContainer:{
+    color: "#2d3436",
+    backgroundColor: "#fab1a0",
+    padding: 15,
+    fontFamily: "yoster",
+    fontSize: 18
   },
   datos:{
     fontSize:15,
