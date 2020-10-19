@@ -31,3 +31,7 @@ Es una aplicación muy simple donde, usando la API **RAWG** podemos ver detalles
 * NodeJS y NPM para el manejo de dependencias.
 * Android Studio para AVD y el build de Gradle.
 
+## Known Issues 😕
+
+* En dispositivos Xiaomi (chequeado en un Xiaomi Note 9 Pro) la aplicacion crashea al momento de autocompletar el campo "Email" en el login. 
+

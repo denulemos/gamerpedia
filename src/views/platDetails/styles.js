@@ -31,11 +31,23 @@ export const styles = StyleSheet.create({
     padding:30,
    
   },
+  descripcion:{
+    color: "white",
+    padding: 20,
+    fontFamily: "OpenSansRegular"
+  },
   name:{
     fontSize:30,
     color: "#fd79a8",
     fontWeight: "600",
     fontFamily: 'yoster'
+  },
+  titulo:{
+    color: "black",
+    backgroundColor: "#fd79a8",
+    padding: 15,
+    fontFamily: "yoster",
+    fontSize: 18
   },
   info:{
     fontSize:16,

@@ -14,19 +14,11 @@ export const styles = StyleSheet.create({
     alignSelf:'center',
     position: 'absolute',
     marginTop:30,
-    
   },
-
-  body:{
-    marginTop:40,
-    
-  },
-  bodyContent: {
-    
+  bodyContent: {  
     alignItems: 'center',
     padding:30,
-    paddingTop: 70
-   
+    paddingTop: 70 
   },
   name:{
     fontSize:20,
@@ -35,18 +27,20 @@ export const styles = StyleSheet.create({
     fontFamily: 'yoster'
   },
   fotosContainer:{
-    color: "#2d3436",
+    color: "black",
     backgroundColor: "#fab1a0",
     padding: 15,
     fontFamily: "yoster",
     fontSize: 18
   },
+  containerScreens:{
+flex: 1
+  },
   datos:{
     fontSize:15,
     color: "#696969",
     fontWeight: "600",
-    fontFamily: 'OpenSansRegular',
-    
+    fontFamily: 'OpenSansRegular',  
   },
   puntuacion:{
     fontSize:10,
@@ -55,8 +49,6 @@ export const styles = StyleSheet.create({
     fontFamily: 'OpenSansRegular',
     paddingTop: 5
   },
- 
- 
   gridView: {
     flex: 1,
     backgroundColor: "black"
@@ -66,28 +58,6 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 5,
     height: 150
-  },
-  info:{
-    fontSize:16,
-    color: "#00BFFF",
-    marginTop:10
-  },
-  description:{
-    fontSize:16,
-    color: "#696969",
-    marginTop:10,
-    textAlign: 'center'
-  },
-  buttonContainer: {
-    marginTop:10,
-    height:45,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom:20,
-    width:250,
-    borderRadius:30,
-    backgroundColor: "#00BFFF",
   },
   container:{
     backgroundColor: 'black',

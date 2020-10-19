@@ -59,11 +59,7 @@ class GamesList extends Component {
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => {
-                this.props.navigation.navigate(
-                  "GameDetails",
-                  {juego: item},
-                  TouchableOpacity
-                );
+                this.props.navigation.navigate("GameDetails", {juego: item});
               }}
               style={[styles.itemContainer, {backgroundColor: "black"}]}
             >
@@ -71,11 +67,8 @@ class GamesList extends Component {
                 source={{uri: item.background_image}}
                 style={{flex: 1}}
               >
- <Text style={styles.itemName}>{item.name}</Text>
-
+                <Text style={styles.itemName}>{item.name}</Text>
               </ImageBackground>
-
-              
             </TouchableOpacity>
           )}
         />

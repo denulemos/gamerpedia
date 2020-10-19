@@ -1,8 +1,7 @@
 import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {Provider as PaperProvider} from "react-native-paper";
-import AppStack from "./src/navigation/stack";
-import CustomDraw from "./src/navigation/customDrawer";
+import DrawerNav from './src/navigation/stack';
 import {createDrawerNavigator} from "@react-navigation/drawer";
 
 export default function App() {
@@ -12,11 +11,7 @@ export default function App() {
       return (
         <PaperProvider>
           <NavigationContainer>
-            <Drawer.Navigator
-              drawerContent={(props) => <CustomDraw {...props} />}
-            >
-              <Drawer.Screen name="Placeholder header" component={AppStack} />
-            </Drawer.Navigator>
+           <DrawerNav/>
           </NavigationContainer>
         </PaperProvider>
       );

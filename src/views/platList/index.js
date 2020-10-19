@@ -1,16 +1,14 @@
 import React, {Component} from "react";
 import {
-  View,
   Text,
   ImageBackground,
   TouchableOpacity,
-  Image
 } from "react-native";
 import {styles} from "./styles";
 import GameServices from "../../services/gameService";
 import Loading from "../../components/Loading/index";
 import {FlatGrid} from "react-native-super-grid";
-import Error from '../../components/error/index';
+import Error from "../../components/error/index";
 class PlatList extends Component {
   constructor(props) {
     super(props);
@@ -32,10 +30,9 @@ class PlatList extends Component {
       })
       .catch((err) => {
         this.setState({
-          platforms: 'none',
+          platforms: "none",
           isLoading: false
         });
-       
       });
   }
 
@@ -44,8 +41,8 @@ class PlatList extends Component {
     //PANTALLA LOADING
     if (isLoading) {
       return <Loading />;
-    } 
-    if (platforms != 'none'){
+    }
+    if (platforms != "none") {
       return (
         <FlatGrid
           itemDimension={200}
@@ -63,22 +60,15 @@ class PlatList extends Component {
                 source={{uri: item.image_background}}
                 style={{flex: 1}}
               >
-              
-               <Text style={styles.itemName}>{item.name}</Text>
-               
-              
+                <Text style={styles.itemName}>{item.name}</Text>
               </ImageBackground>
-            
-  
             </TouchableOpacity>
           )}
         />
       );
+    } else {
+      return <Error />;
     }
-    else{
-     return <Error/>
-    }
-    
   }
 }
 

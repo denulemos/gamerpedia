@@ -9,7 +9,7 @@ import {
 import {styles} from "./styles";
 import Input from "../../components/TextInput/index";
 import AwesomeAlert from "react-native-awesome-alerts";
-import { firebase } from '../../services/firebaseConfig';
+import {firebase} from "../../services/firebaseConfig";
 
 class Registro extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class Registro extends Component {
       showAlert: false,
       mensajePopUp: "",
       shorAlertEspera: false,
-      showAlertOk : false,
+      showAlertOk: false,
       hideAlertOk: false
     };
   }
@@ -41,7 +41,13 @@ class Registro extends Component {
         )
       ) {
         _this.registro();
-      } else {
+    }
+    else if (/^$|\s+/.test(_this.state.psw)){ //Espacios blancos
+      _this.setState({mensajePopUp: "Ingrese una contraseña valida"});
+        _this.hideAlertEspera();
+        _this.showAlert();
+    }
+    else {
         _this.setState({mensajePopUp: "Ingrese un email valido"});
         _this.hideAlertEspera();
         _this.showAlert();
@@ -52,28 +58,28 @@ class Registro extends Component {
   registro = () => {
     let _this = this;
     _this.hideAlertEspera();
-   firebase.auth()
+    firebase
+      .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.psw)
       .then(() => {
-       
-       
         _this.showAlertOk();
-        
       })
       .catch((error) => {
-        if (error.code === "auth/email-already-in-use") {
+        if (error.Error === "auth/email-already-in-use") {
           _this.setState({mensajePopUp: "Email ya registrado"});
           _this.hideAlertEspera();
           _this.showAlert();
         }
 
-        if (error.code === "auth/invalid-email") {
+        if (error.Error === "auth/invalid-email") {
           _this.setState({mensajePopUp: "Email invalido"});
           _this.hideAlertEspera();
           _this.showAlert();
         }
 
-        _this.setState({mensajePopUp:  error});
+        _this.setState({
+          mensajePopUp: "Ocurrió un error en el registro" + error
+        });
         _this.hideAlertEspera();
         _this.showAlert();
       });
@@ -147,6 +153,8 @@ class Registro extends Component {
             label={"Email"}
             secure={false}
             style={styles.input}
+            autoCorrect={false}
+            type={"email-address"}
             handle={this.handleUser}
           />
           <Input
@@ -176,7 +184,7 @@ class Registro extends Component {
               this.hideAlert();
             }}
           />
-           <AwesomeAlert
+          <AwesomeAlert
             show={showAlertOk}
             showProgress={false}
             title="¡Hola!"
@@ -189,10 +197,10 @@ class Registro extends Component {
             confirmButtonColor="#DD6B55"
             onConfirmPressed={() => {
               this.hideAlertOk();
-              this.props.navigation.navigate('Login');
+              this.props.navigation.navigate("Login");
             }}
           />
-           <AwesomeAlert
+          <AwesomeAlert
             show={showAlertEspera}
             showProgress={false}
             message="Registrando..."
@@ -216,13 +224,9 @@ class Registro extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              this.props.navigation.navigate('Login');
+              this.props.navigation.navigate("Login");
             }}
-            style={
-              styles.botonLogin
-              
-            }
-            
+            style={styles.botonLogin}
           >
             <Text style={styles.textoBotonLogin}>Volver</Text>
           </TouchableOpacity>

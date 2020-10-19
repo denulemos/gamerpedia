@@ -14,7 +14,7 @@ var UserService = {
     return axios.get("https://api.rawg.io/api/platforms");
   },
   getScreenshotGames: function (id) {
-    return axios.get("https://api.rawg.io/api/games/" + id + "/screenshots?page_size=4");
+    return axios.get("https://api.rawg.io/api/games/" + id + "/screenshots?page_size=6");
   },
   getPlatformDescription: function (id) {
     return axios.get("https://api.rawg.io/api/platforms/" + id );

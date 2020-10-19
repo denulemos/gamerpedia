@@ -88,7 +88,7 @@ class Login extends Component {
           <Text style={styles.titulo}>Gamerpedia</Text>
 
           <Input
-            carret={true}
+            carret={false}
             label={"Email"}
             style={styles.input}
             autoCorrect={false}

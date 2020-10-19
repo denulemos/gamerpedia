@@ -8,6 +8,10 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 import menu from "../assets/img/open-menu.png";
+import styles from './styles';
+import {createDrawerNavigator} from "@react-navigation/drawer";
+import CustomDraw from "../navigation/customDrawer";
+const Drawer = createDrawerNavigator();
 
 const getButton = ({navigation}) => (
   <TouchableOpacity
@@ -16,18 +20,10 @@ const getButton = ({navigation}) => (
   >
     <Image
       source={menu}
-      style={{
-        width: 25,
-        height: 20,
-        marginLeft: 15,
-        marginRight: 10,
-        tintColor: "#636e72"
-      }}
+      style={styles.openDrawer}
     />
   </TouchableOpacity>
 );
-
-
 
 function HomeTabs() {
   return (
@@ -43,7 +39,7 @@ function HomeTabs() {
         component={Routes.GamesList}
         options={{
           tabBarLabel: "Juegos",
-          tabBarIcon: ({color, size}) => (
+          tabBarIcon: ({size}) => (
             <MaterialCommunityIcons
               name="space-invaders"
               color={"#fab1a0"}
@@ -57,7 +53,7 @@ function HomeTabs() {
         component={Routes.DevList}
         options={{
           tabBarLabel: "Desarolladores",
-          tabBarIcon: ({color, size}) => (
+          tabBarIcon: ({ size}) => (
             <MaterialCommunityIcons
               name="human-greeting"
               color={"#74b9ff"}
@@ -71,7 +67,7 @@ function HomeTabs() {
         component={Routes.PlatList}
         options={{
           tabBarLabel: "Plataformas",
-          tabBarIcon: ({color, size}) => (
+          tabBarIcon: ({ size}) => (
             <MaterialCommunityIcons
               name="nintendo-game-boy"
               color={"#fd79a8"}
@@ -171,4 +167,14 @@ function AppStack() {
   );
 }
 
-export default AppStack;
+function DrawerNav(){
+  return (
+    <Drawer.Navigator
+    drawerContent={(props) => <CustomDraw {...props} />}
+  >
+    <Drawer.Screen name="Placeholder header" component={AppStack} />
+  </Drawer.Navigator>
+  )
+}
+
+export default DrawerNav;

@@ -15,10 +15,6 @@ export const styles = StyleSheet.create({
     position: "absolute",
     marginTop: 30
   },
-
-  body: {
-    marginTop: 40
-  },
   itemTitle:{
     color: 'white',
       fontSize: 25,
@@ -46,7 +42,7 @@ export const styles = StyleSheet.create({
     paddingTop: 60
   },
   datos: {
-    fontSize: 15,
+    fontSize: 13,
     color: "#696969",
     fontWeight: "600",
     fontFamily: "OpenSansRegular"
@@ -57,12 +53,6 @@ export const styles = StyleSheet.create({
     fontWeight: "600",
     fontFamily: "yoster"
   },
-  info: {
-    fontSize: 16,
-    color: "#00BFFF",
-    marginTop: 10
-  },
-
   buttonContainer: {
     marginTop: 10,
     height: 45,

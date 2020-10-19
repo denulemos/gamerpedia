@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Image, ImageBackground, ScrollView } from "react-native";
+import {View, Text, Image, ImageBackground } from "react-native";
 import {styles} from "./styles";
 import Loading from "../../components/Loading/index";
 import {FlatGrid} from "react-native-super-grid";
@@ -18,7 +18,7 @@ class DevDetails extends Component {
  
   componentDidMount() {
     this.setState({
-      juego: this.props.route.params.juego //Tomamos los parametros del otro activity
+      juego: this.props.route.params.juego 
     });
     GameServices.getScreenshotGames(this.props.route.params.juego.id)
       .then((results) => {
@@ -64,7 +64,7 @@ class DevDetails extends Component {
                 ({juego.ratings_count} puntuaciones)
               </Text>
             </View>
-            <View style={{flex: 1}}>
+            <View style={styles.containerScreens}>
               <Text
                 style={styles.fotosContainer}
               >
