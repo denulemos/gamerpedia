@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   botonLogin: {
-    marginTop: 2,
+    marginTop: 10,
     backgroundColor: '#FD7272',
     marginLeft: 70,
     marginRight: 70,
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   img: {
     alignSelf: 'center',

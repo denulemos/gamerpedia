@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import {
   Text,
   ImageBackground,
@@ -9,36 +9,26 @@ import GameServices from "../../services/gameService";
 import Loading from "../../components/Loading/index";
 import {FlatGrid} from "react-native-super-grid";
 import Error from "../../components/error/index";
-class PlatList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      platforms: null,
-      isLoading: true
-    };
-  }
 
-  componentDidMount() {
+const PlatList = (props) => {
+  const [platforms, setPlatforms] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+ 
+  useEffect(() => {
     GameServices.getPlataformas()
       .then((results) => {
         if (results && results.data && results.data.results) {
-          this.setState({
-            platforms: results.data.results,
-            isLoading: false
-          });
+          setPlatforms(results.data.results);
+        setIsLoading(false)
         }
       })
       .catch((err) => {
-        this.setState({
-          platforms: "none",
-          isLoading: false
-        });
+        setPlatforms("none");
+        setIsLoading(false)
       });
-  }
+  }, []);
 
-  render() {
-    const {isLoading, platforms} = this.state;
-    //PANTALLA LOADING
+
     if (isLoading) {
       return <Loading />;
     }
@@ -52,7 +42,7 @@ class PlatList extends Component {
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => {
-                this.props.navigation.navigate("PlatDetails", {plat: item});
+                props.navigation.navigate("PlatDetails", {plat: item});
               }}
               style={[styles.itemContainer, {backgroundColor: "black"}]}
             >
@@ -69,7 +59,7 @@ class PlatList extends Component {
     } else {
       return <Error />;
     }
-  }
+  
 }
 
 export default PlatList;

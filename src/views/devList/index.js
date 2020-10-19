@@ -1,45 +1,40 @@
-import React, {Component} from "react";
-import {View, Text, TouchableOpacity, ImageBackground} from "react-native";
+import React, {useState, useEffect} from "react";
+import {Text, TouchableOpacity, ImageBackground} from "react-native";
 import Loading from "../../components/Loading/index";
 import {styles} from "./styles";
 import GameServices from "../../services/gameService";
 import {FlatGrid} from "react-native-super-grid";
 import Error from "../../components/error/index";
 import FooterLoading from "../../components/footerLoading/index";
-class DevList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      devs: [],
-      isLoading: true,
-      page: 1
-    };
-  }
 
-  traerDevelopers = () => {
-    GameServices.getDev(this.state.page)
+const DevList = (props) => {
+  const [devs, setDevs] = React.useState([]);
+  const [isLoading, setLoading] = React.useState(true);
+  const [page, setPage] = React.useState(1);
+  
+
+  const traerDevelopers = () => {
+    GameServices.getDev(page)
       .then((results) => {
         if (results && results.data && results.data.results) {
-          this.setState({
-            devs: this.state.devs.concat(results.data.results)
-          });
+          setDevs(
+            devs.concat(results.data.results)
+          );
         }
       })
       .catch((err) => {
-        this.setState({
-          juegos: "none"
-        });
+        setDevs("none");
       });
-    this.setState({page: this.state.page + 1});
+    setPage(page + 1);
   };
 
-  componentDidMount() {
-    this.traerDevelopers();
-    this.setState({isLoading: false});
-  }
+  useEffect(() => {
+    traerDevelopers();
+    setLoading(false);
+  }, []);
+ 
 
-  render() {
-    const {isLoading, devs} = this.state;
+
 
     if (isLoading) {
       return <Loading />;
@@ -52,12 +47,12 @@ class DevList extends Component {
           style={styles.gridView}
           ListFooterComponent={FooterLoading}
           onEndReachedThreshold={0.5}
-          onEndReached={this.traerDevelopers}
+          onEndReached={traerDevelopers}
           spacing={10}
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => {
-                this.props.navigation.navigate("DevDetails", {dev: item});
+                props.navigation.navigate("DevDetails", {dev: item});
               }}
               style={[styles.itemContainer, {backgroundColor: "black"}]}
             >
@@ -74,7 +69,7 @@ class DevList extends Component {
     } else {
       return <Error />;
     }
-  }
+  
 }
 
 export default DevList;

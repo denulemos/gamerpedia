@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import {
   View,
   Text,
@@ -10,54 +10,45 @@ import Loading from "../../components/Loading/index";
 import GameServices from "../../services/gameService";
 import Error from "../../components/error/index";
 
-class DevDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      plat: null,
-      objetoPlat: null,
-      arrJuegos: []
-    };
-  }
+const DevDetails = (props) => {
+  const [plat, setPlat] = useState(null);
+  const [objetoPlat, setObjetoPlat] = useState(null);
+  const [arrJuegos, setArrJuegos] = useState([]);
+  
 
-  getDescripciones = () => {
-    GameServices.getPlatformDescription(this.props.route.params.plat.id)
+  const getDescripciones = () => {
+    GameServices.getPlatformDescription(props.route.params.plat.id)
       .then((results) => {
         if (results && results.data) {
-          this.setState({
-            objetoPlat: results.data
-          });
+        setObjetoPlat(
+            results.data
+          );
         }
       })
       .catch((err) => {
-        this.setState({
-          objetoPlat: "none"
-        });
+        setObjetoPlat(
+         "none"
+        );
       });
   };
 
-  juegosPlataforma = () => {
-    return this.state.arrJuegos.map((item) => {
+  const juegosPlataforma = () => {
+    return arrJuegos.map((item) => {
       return (
-        <View key={item.id} style={{height: 20, marginLeft: 10, backgroundColor: '#fd79a8', margin: 10, padding: 5}}>
-          <Text style={{color: "black", fontFamily: 'yoster'}}>{item.name}</Text>
+        <View key={item.id} style={styles.viewItem}>
+          <Text style={styles.textItem}>{item.name}</Text>
         </View>
       );
     });
   };
 
-  componentDidMount() {
-    this.setState({
-      plat: this.props.route.params.plat, //Tomamos los parametros del otro activity
-      arrJuegos: this.props.route.params.plat.games
-    });
-
-    this.getDescripciones();
-  }
+  useEffect(() => {
+   setPlat(props.route.params.plat);
+   setArrJuegos(props.route.params.plat.games);
+   getDescripciones();
+  }, []);
 
 
-  render() {
-    const {plat, objetoPlat} = this.state;
 
     if (objetoPlat == null) {
       return <Loading />;
@@ -71,11 +62,7 @@ class DevDetails extends Component {
           <View style={styles.bodyContent}>
             <Text style={styles.name}>{plat.name}</Text>
             <Text
-              style={{
-                color: "white",
-                fontFamily: "OpenSansRegular",
-                fontSize: 15
-              }}
+              style={styles.cantJuegos}
             >
               Cantidad de juegos {plat.games_count}
             </Text>
@@ -91,8 +78,8 @@ class DevDetails extends Component {
           </View>
 
           <Text style={styles.titulo}>Algunos juegos de esta plataforma</Text>
-          <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start', padding: 10}}>
-          {this.juegosPlataforma()}
+          <View style={styles.listaJuegos}>
+          {juegosPlataforma()}
           </View>
         
         </ScrollView>
@@ -100,7 +87,7 @@ class DevDetails extends Component {
     } else {
       return <Error />;
     }
-  }
+  
 }
 
 export default DevDetails;

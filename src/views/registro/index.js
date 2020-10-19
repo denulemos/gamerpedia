@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import {
   View,
   Text,
@@ -9,231 +9,186 @@ import {
 import {styles} from "./styles";
 import Input from "../../components/TextInput/index";
 import AwesomeAlert from "react-native-awesome-alerts";
-import {firebase} from "../../services/firebaseConfig";
+import {firebase} from "../../services/firebaseConfigMio";
 
-class Registro extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      pswConf: "",
-      psw: "",
-      botonHabilitado: false,
-      showAlert: false,
-      mensajePopUp: "",
-      shorAlertEspera: false,
-      showAlertOk: false,
-      hideAlertOk: false
-    };
-  }
+const Registro = (props) => {
+  const [email, setEmail] = useState("");
+  const [pswConf, setPswConf] = useState("");
+  const [psw, setPsw] = useState("");
+  const [botonHabilitado, setBotonHabilitado] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [mensajePopUp, setMensajePopUp] = useState("");
+  const [showAlertEspera, setShowAlertEspera] = useState(false);
+  const [showAlertOk, setShowAlertOk] = useState(false);
+  const [hideAlertOk, setHideAlertOk] = useState(false);
 
-  validar = () => {
-    let _this = this;
-    _this.showAlertEspera();
-    if (this.state.psw != this.state.pswConf) {
-      _this.setState({mensajePopUp: "Las contraseñas no son iguales!"});
-      _this.hideAlertEspera();
-      _this.showAlert();
+  const validar = () => {
+    setShowAlertEspera(true);
+    if (psw != pswConf) {
+      setMensajePopUp("Las contraseñas no son iguales!");
+      setShowAlertEspera(false);
+      setShowAlert(true);
     } else {
       if (
         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-          _this.state.email
+          email
         )
       ) {
-        _this.registro();
-    }
-    else if (/^$|\s+/.test(_this.state.psw)){ //Espacios blancos
-      _this.setState({mensajePopUp: "Ingrese una contraseña valida"});
-        _this.hideAlertEspera();
-        _this.showAlert();
-    }
-    else {
-        _this.setState({mensajePopUp: "Ingrese un email valido"});
-        _this.hideAlertEspera();
-        _this.showAlert();
+        registro();
+      } else if (/^$|\s+/.test(psw)) {
+        //Espacios blancos
+        setMensajePopUp("Ingrese una contraseña valida");
+        setShowAlertEspera(false);
+        setShowAlert(true);
+      } else {
+        setMensajePopUp("Ingrese un email valido");
+        hideAlertEspera();
+        setShowAlert(true);
       }
     }
   };
 
-  registro = () => {
-    let _this = this;
-    _this.hideAlertEspera();
+  const registro = () => {
+    setShowAlertEspera(false);
     firebase
       .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.psw)
+      .createUserWithEmailAndPassword(email, psw)
       .then(() => {
-        _this.showAlertOk();
+        setShowAlertOk(true);
       })
       .catch((error) => {
         if (error.Error === "auth/email-already-in-use") {
-          _this.setState({mensajePopUp: "Email ya registrado"});
-          _this.hideAlertEspera();
-          _this.showAlert();
+          setMensajePopUp("Email ya registrado");
+          setShowAlertEspera(false);
+          setShowAlert(true);
         }
 
         if (error.Error === "auth/invalid-email") {
-          _this.setState({mensajePopUp: "Email invalido"});
-          _this.hideAlertEspera();
-          _this.showAlert();
+          setMensajePopUp("Email invalido");
+          setShowAlertEspera(false);
+          setShowAlert(true);
         }
 
-        _this.setState({
-          mensajePopUp: "Ocurrió un error en el registro" + error
-        });
-        _this.hideAlertEspera();
-        _this.showAlert();
+        setMensajePopUp("Ocurrió un error en el registro" + error);
+        setShowAlertEspera(false);
+        setShowAlert(true);
       });
   };
-  handleUser = (value) => {
-    this.setState({email: value});
-    this.habilitarBoton();
-  };
-  showAlert = () => {
-    this.setState({
-      showAlert: true
-    });
-  };
-  showAlertOk = () => {
-    this.setState({
-      showAlertOk: true
-    });
-  };
-  showAlertEspera = () => {
-    this.setState({
-      showAlertEspera: true
-    });
+
+  const handleUser = (value) => {
+    setEmail(value);
+    habilitarBoton();
   };
 
-  hideAlert = () => {
-    this.setState({
-      showAlert: false
-    });
+  const hideAlertEspera = () => {
+    setShowAlertEspera(false);
   };
-  hideAlertOk = () => {
-    this.setState({
-      showAlertOk: false
-    });
+  const handlePass = (value) => {
+    setPsw(value);
+    habilitarBoton();
   };
-  hideAlertEspera = () => {
-    this.setState({
-      showAlertEspera: false
-    });
+  const handlePassConf = (value) => {
+    setPswConf(value);
+    habilitarBoton();
   };
-  handlePass = (value) => {
-    this.setState({psw: value});
-    this.habilitarBoton();
+  const habilitarBoton = () => {
+    email !== "" && psw !== "" && pswConf !== "" && psw.length > 6
+      ? setBotonHabilitado(true)
+      : setBotonHabilitado(false);
   };
-  handlePassConf = (value) => {
-    this.setState({pswConf: value});
-    this.habilitarBoton();
-  };
-  habilitarBoton = () => {
-    this.state.usr !== "" &&
-    this.state.psw !== "" &&
-    this.state.pswConf !== "" &&
-    this.state.psw.length > 6
-      ? this.setState({botonHabilitado: true})
-      : this.setState({botonHabilitado: false});
-  };
-  render() {
-    const {showAlert, showAlertEspera, showAlertOk, mensajePopUp} = this.state;
-    return (
-      <View style={styles.container}>
-        <ImageBackground
-          source={require("../../assets/img/registro.png")}
-          style={styles.image}
+
+  return (
+    <View style={styles.container}>
+      <ImageBackground
+        source={require("../../assets/img/registro.png")}
+        style={styles.image}
+      >
+        <Image
+          source={require("../../assets/img/Sonic.png")}
+          style={styles.img}
+        />
+        <Text style={styles.titulo}>Registro</Text>
+
+        <Input
+          label={"Email"}
+          secure={false}
+          style={styles.input}
+          autoCorrect={false}
+          type={"email-address"}
+          handle={handleUser}
+        />
+        <Input
+          label={"Contraseña"}
+          secure={true}
+          style={styles.input}
+          handle={handlePass}
+        />
+        <Input
+          label={"Confirmar Contraseña"}
+          secure={true}
+          style={styles.input}
+          handle={handlePassConf}
+        />
+        <AwesomeAlert
+          show={showAlert}
+          showProgress={false}
+          title="Aviso"
+          message={mensajePopUp}
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Entendido"
+          confirmButtonColor="#DD6B55"
+          onConfirmPressed={() => {
+            setShowAlert(false);
+          }}
+        />
+        <AwesomeAlert
+          show={showAlertOk}
+          showProgress={false}
+          title="¡Hola!"
+          message="Registro correcto! Ya podes logearte :)"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Entendido"
+          confirmButtonColor="#DD6B55"
+          onConfirmPressed={() => {
+            setShowAlertOk(false);
+            props.navigation.navigate("Login");
+          }}
+        />
+        <AwesomeAlert
+          show={showAlertEspera}
+          showProgress={false}
+          message="Registrando..."
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={false}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            validar();
+          }}
+          style={botonHabilitado ? styles.botonLogin : styles.botonLoginInh}
+          disabled={!botonHabilitado}
         >
-          <Image
-            source={require("../../assets/img/Sonic.png")}
-            style={styles.img}
-          />
-          <Text style={styles.titulo}>Registro</Text>
-
-          <Input
-            label={"Email"}
-            secure={false}
-            style={styles.input}
-            autoCorrect={false}
-            type={"email-address"}
-            handle={this.handleUser}
-          />
-          <Input
-            label={"Contraseña"}
-            secure={true}
-            style={styles.input}
-            handle={this.handlePass}
-          />
-          <Input
-            label={"Confirmar Contraseña"}
-            secure={true}
-            style={styles.input}
-            handle={this.handlePassConf}
-          />
-          <AwesomeAlert
-            show={showAlert}
-            showProgress={false}
-            title="Aviso"
-            message={mensajePopUp}
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={false}
-            showConfirmButton={true}
-            confirmText="Entendido"
-            confirmButtonColor="#DD6B55"
-            onConfirmPressed={() => {
-              this.hideAlert();
-            }}
-          />
-          <AwesomeAlert
-            show={showAlertOk}
-            showProgress={false}
-            title="¡Hola!"
-            message="Registro correcto! Ya podes logearte :)"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={false}
-            showConfirmButton={true}
-            confirmText="Entendido"
-            confirmButtonColor="#DD6B55"
-            onConfirmPressed={() => {
-              this.hideAlertOk();
-              this.props.navigation.navigate("Login");
-            }}
-          />
-          <AwesomeAlert
-            show={showAlertEspera}
-            showProgress={false}
-            message="Registrando..."
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={false}
-            showConfirmButton={false}
-          />
-          <TouchableOpacity
-            onPress={() => {
-              this.validar();
-            }}
-            style={
-              this.state.botonHabilitado
-                ? styles.botonLogin
-                : styles.botonLoginInh
-            }
-            disabled={!this.state.botonHabilitado}
-          >
-            <Text style={styles.textoBotonLogin}>Registrarme</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate("Login");
-            }}
-            style={styles.botonLogin}
-          >
-            <Text style={styles.textoBotonLogin}>Volver</Text>
-          </TouchableOpacity>
-        </ImageBackground>
-      </View>
-    );
-  }
-}
+          <Text style={styles.textoBotonLogin}>Registrarme</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate("Login");
+          }}
+          style={styles.botonLogin}
+        >
+          <Text style={styles.textoBotonLogin}>Volver</Text>
+        </TouchableOpacity>
+      </ImageBackground>
+    </View>
+  );
+};
 
 export default Registro;

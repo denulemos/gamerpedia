@@ -1,100 +1,79 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import {
   View,
   Text,
   Image,
   ImageBackground,
-  TouchableOpacity,
-  SectionList,
-  SafeAreaView,
-  ScrollView
+  TouchableOpacity
 } from "react-native";
 import {styles} from "./styles";
 import Loading from "../../components/Loading/index";
 import {FlatGrid} from "react-native-super-grid";
 import GameServices from "../../services/gameService";
 import Error from "../../components/error/index";
-class DevDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dev: null,
-      juegos: null
-    };
-  }
 
-  componentDidMount() {
-    this.setState({
-      dev: this.props.route.params.dev
-    });
-    GameServices.getGamesForDev(this.props.route.params.dev.id)
+const DevDetails = (props) => {
+  const [dev, setDev] = useState(null);
+  const [juegos, setJuegos] = useState(null);
+
+  useEffect(() => {
+    setDev(props.route.params.dev);
+    GameServices.getGamesForDev(props.route.params.dev.id)
       .then((results) => {
         if (results && results.data && results.data.results) {
-          this.setState({
-            juegos: results.data.results
-          });
+          setJuegos(results.data.results);
         }
       })
       .catch((err) => {
-        this.setState({juegos: "none"});
+        setJuegos("none");
       });
+  }, []);
+
+  if (juegos == null) {
+    return <Loading />;
   }
 
-  render() {
-    const {juegos, dev} = this.state;
-    if (juegos == null) {
-      return <Loading />;
-    }
+  if (juegos != "none") {
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}></View>
+        <Image style={styles.avatar} source={{uri: dev.image_background}} />
 
-    if (juegos != "none") {
-      return (
-        <View style={styles.container}>
-          <View style={styles.header}></View>
-          <Image style={styles.avatar} source={{uri: dev.image_background}} />
-          
-            <View style={styles.bodyContent}>
-              <Text style={styles.name}>{dev.name}</Text>
-              <Text style={styles.datos}>
-                Cantidad de juegos {dev.games_count}
-              </Text>
-            </View>
-
-           
-              <Text style={styles.juegosTitle}>Juegos realizados</Text>
-              <FlatGrid
-                removeClippedSubviews={true}
-                itemDimension={200}
-                data={this.state.juegos}
-                style={styles.gridView}
-                spacing={10}
-                renderItem={({item}) => (
-                  <TouchableOpacity
-                    style={[styles.itemContainer, {backgroundColor: "black"}]}
-                    onPress={() => {
-                      this.props.navigation.navigate("GameDetails", {
-                        juego: item
-                      });
-                    }}
-                  >
-                    <ImageBackground
-                      source={{uri: item.background_image}}
-                      style={{flex: 1}}
-                    > 
-                    <Text style={styles.itemTitle}>{item.name}</Text>
-                    </ImageBackground>
-
-                   
-                  </TouchableOpacity>
-                )}
-              />
-           
-          
+        <View style={styles.bodyContent}>
+          <Text style={styles.name}>{dev.name}</Text>
+          <Text style={styles.datos}>Cantidad de juegos {dev.games_count}</Text>
         </View>
-      );
-    } else {
-      return <Error />;
-    }
+
+        <Text style={styles.juegosTitle}>Juegos realizados</Text>
+        <FlatGrid
+          removeClippedSubviews={true}
+          itemDimension={200}
+          data={juegos}
+          style={styles.gridView}
+          spacing={10}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              style={[styles.itemContainer, {backgroundColor: "black"}]}
+              onPress={() => {
+                props.navigation.navigate("GameDetails", {
+                  juego: item
+                });
+              }}
+            >
+              <ImageBackground
+                source={{uri: item.background_image}}
+                style={{flex: 1}}
+              >
+                <Text style={styles.itemTitle}>{item.name}</Text>
+              </ImageBackground>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    );
+  } else {
+    return <Error />;
   }
-}
+};
 
 export default DevDetails;

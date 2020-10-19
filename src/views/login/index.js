@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import {
   View,
   Text,
@@ -9,63 +9,70 @@ import {
 import {styles} from "./styles";
 import Input from "../../components/TextInput/index";
 import AwesomeAlert from "react-native-awesome-alerts";
-import {firebase} from "../../services/firebaseConfig";
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      usr: "",
-      psw: "",
-      botonHabilitado: false,
-      mensajePopUp: "",
-      showAlert: false
-    };
-  }
+import {firebase} from "../../services/firebaseConfigMio";
 
+const Login = (props) =>  {
+  const [usr, setUsr] = useState("");
+  const [psw, setPsw] = useState("");
+  const [botonHabilitado, setBoton] = useState(false);
+  const [mensajePop, setMensajePop] = useState("");
+  const [showAlertStat, setShowAlertStat] = useState(false);
+  const [showAlertError, setShowAlertError] = useState(false);
 
-  login = () => {
-    this.setState({mensajePopUp: "Ingresando"});
-    this.showAlert();
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+       setMensajePop("Bienvenido " + user.email + "!");
+       showAlertEr();
+       props.navigation.navigate("GamesList")
+      } 
+    });
+  });
+
+  const login = () => {
+    showAlert();
     firebase.auth()
-      .signInWithEmailAndPassword(this.state.usr, this.state.psw)
+      .signInWithEmailAndPassword(usr, psw)
       .then((usr) => {
-        this.hideAlert();
-        this.props.navigation.navigate("GamesList");
-        console.log(usr)
+        hideAlert();
+        props.navigation.navigate("GamesList");
       })
       .catch((err) => {
-        console.log(err)
-        this.setState({mensajePopUp: err});
-        this.showAlert();
+        
+        setMensajePop('Ocurrio un error: ' + err);
+        showAlertEr();
+        hideAlert();
       });
   };
 
-  handleUser = (value) => {
-    this.setState({usr: value});
-    this.habilitarBoton();
+  const handleUser = (value) => {
+    setUsr(value);
+    habilitarBoton();
   };
-  handlePass = (value) => {
-    this.setState({psw: value});
-    this.habilitarBoton();
-  };
-  showAlert = () => {
-    this.setState({
-      showAlert: true
-    });
-  };
-  hideAlert = () => {
-    this.setState({
-      showAlert: false
-    });
-  };
-  habilitarBoton = () => {
-    this.state.usr !== "" && this.state.psw !== "" && this.state.psw.length > 6
-      ? this.setState({botonHabilitado: true})
-      : this.setState({botonHabilitado: false});
+  const handlePass = (value) => {
+    setPsw(value);
+    habilitarBoton();
   };
 
-  render() {
-    const {showAlert} = this.state;
+  const showAlert = () => {
+    setShowAlertStat(true);
+  };
+  const hideAlert = () => {
+    setShowAlertStat(false);
+  };
+
+  const showAlertEr = () => {
+    setShowAlertError(true);
+  };
+  const hideAlertError = () => {
+    setShowAlertError(false);
+  };
+  const habilitarBoton = () => {
+    usr !== "" && psw !== "" && psw.length > 6
+      ? setBoton(true)
+      : setBoton(false);
+  };
+
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -73,14 +80,30 @@ class Login extends Component {
           style={styles.image}
         >
           <AwesomeAlert
-            show={showAlert}
+            show={showAlertError}
             showProgress={false}
-            message={this.state.mensajePopUp}
+            message={mensajePop}
+            closeOnTouchOutside={true}
+            closeOnHardwareBackPress={false}
+            showCancelButton={false}
+            showConfirmButton={true}
+            confirmText="Entendido"
+            confirmButtonColor="#DD6B55"
+            onConfirmPressed={() => {
+              hideAlertError();
+              
+            }}
+          />
+           <AwesomeAlert
+            show={showAlertStat}
+            showProgress={false}
+            message={"Ingresando"}
             closeOnTouchOutside={true}
             closeOnHardwareBackPress={false}
             showCancelButton={false}
             showConfirmButton={false}
           />
+
           <Image
             source={require("../../assets/img/mario.png")}
             style={styles.img}
@@ -88,35 +111,35 @@ class Login extends Component {
           <Text style={styles.titulo}>Gamerpedia</Text>
 
           <Input
-            carret={false}
+            
             label={"Email"}
             style={styles.input}
             autoCorrect={false}
             type={"email-address"}
-            handle={this.handleUser}
+            handle={handleUser}
           />
           <Input
             label={"Contraseña"}
             secure={true}
             style={styles.input}
-            handle={this.handlePass}
+            handle={handlePass}
           />
           <TouchableOpacity
             onPress={() => {
-              this.login();
+              login();
             }}
             style={
-              this.state.botonHabilitado
+              botonHabilitado
                 ? styles.botonLogin
                 : styles.botonLoginInh
             }
-            disabled={!this.state.botonHabilitado}
+            disabled={!botonHabilitado}
           >
             <Text style={styles.textoBotonLogin}>Ingresar</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              this.props.navigation.navigate("Registro");
+              props.navigation.navigate("Registro");
             }}
             style={styles.botonRegistro}
           >
@@ -125,7 +148,7 @@ class Login extends Component {
         </ImageBackground>
       </View>
     );
-  }
+  
 }
 
 export default Login;

@@ -10,12 +10,12 @@ const Input = (props) => {
   };
   return (
     <TextInput
+      caretHidden={true}
       value={text}
       onChangeText={(text) => setText(text)}
       secureTextEntry={props.secure}
       style={{marginLeft: 50, marginRight: 50}}
       placeholder={props.label}
-      carretHidden={props.carret}
       keyboardType={props.type}
       onChangeText={textHandler}
       inputStyle={{color: "grey"}}

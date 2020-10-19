@@ -1,47 +1,43 @@
-import React, {Component} from "react";
-import {View, ImageBackground, Text, TouchableOpacity} from "react-native";
+import React, {useState, useEffect} from "react";
+import { ImageBackground, Text, TouchableOpacity} from "react-native";
 import {styles} from "./styles";
 import GameServices from "../../services/gameService";
 import {FlatGrid} from "react-native-super-grid";
 import Loading from "../../components/Loading/index";
 import Error from "../../components/error/index";
 import FooterLoading from "../../components/footerLoading/index";
-class GamesList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      juegos: [],
-      isLoading: true,
-      page: 1
-    };
-  }
 
-  traerJuegos = () => {
-    GameServices.getGames(this.state.page)
+const GamesList = (props) => {
+  const [juegos, setJuegos] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  
+
+ const traerJuegos = () => {
+    GameServices.getGames(page)
       .then((results) => {
         if (results && results.data && results.data.results) {
-          this.setState({
-            juegos: this.state.juegos.concat(results.data.results)
-          });
+          setJuegos(
+            juegos.concat(results.data.results)
+          );
         }
       })
       .catch((err) => {
-        this.setState({
-          juegos: "none"
-        });
+        setJuegos(
+          "none"
+      );
       });
-    this.setState({page: this.state.page + 1});
+    setPage(page + 1);
   };
 
-  componentDidMount() {
-    this.traerJuegos();
-    this.setState({
-      isLoading: false
-    });
-  }
+  useEffect(() => {
+    traerJuegos();
+    setLoading(
+      false
+    );
+  }, []);
 
-  render() {
-    const {juegos, isLoading} = this.state;
+ 
     if (isLoading) {
       return <Loading />;
     }
@@ -55,11 +51,11 @@ class GamesList extends Component {
           keyExtractor={(item) => item.id.toString()}
           spacing={10}
           onEndReachedThreshold={0.5}
-          onEndReached={this.traerJuegos}
+          onEndReached={traerJuegos}
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => {
-                this.props.navigation.navigate("GameDetails", {juego: item});
+                props.navigation.navigate("GameDetails", {juego: item});
               }}
               style={[styles.itemContainer, {backgroundColor: "black"}]}
             >
@@ -76,7 +72,7 @@ class GamesList extends Component {
     } else {
       return <Error />;
     }
-  }
+  
 }
 
 export default GamesList;
