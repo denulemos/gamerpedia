@@ -48,7 +48,7 @@ class PlatList extends Component {
     if (platforms != 'none'){
       return (
         <FlatGrid
-          itemDimension={130}
+          itemDimension={200}
           data={platforms}
           style={styles.gridView}
           spacing={10}
@@ -63,9 +63,12 @@ class PlatList extends Component {
                 source={{uri: item.image_background}}
                 style={{flex: 1}}
               >
-                
+              
+               <Text style={styles.itemName}>{item.name}</Text>
+               
+              
               </ImageBackground>
-              <View ><Text style={styles.itemName}>{item.name}</Text></View>
+            
   
             </TouchableOpacity>
           )}

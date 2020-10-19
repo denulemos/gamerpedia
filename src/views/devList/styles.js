@@ -5,11 +5,20 @@ export const styles = StyleSheet.create({
     flex: 1
   },
   title: {
-    fontFamily: "OpenSansRegular",
-    color: "#74b9ff",
     marginTop: 10,
-    fontSize: 12,
-    textAlign: "center"
+    fontFamily: 'yoster',
+   
+      color: 'white',
+      fontSize: 25,
+      textShadowColor:'black',
+      textShadowOffset:{width: 5, height: 5},
+      textShadowRadius:10,
+      alignSelf: 'flex-start',
+      position: 'absolute',
+      bottom: 0,
+      marginLeft: 10,
+      marginBottom: 10,
+      backgroundColor: 'rgba(52, 52, 52, 0.5)',
   },
   gridView: {
     flex: 1,

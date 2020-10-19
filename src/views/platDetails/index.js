@@ -50,7 +50,7 @@ class DevDetails extends Component {
     }
     if (objetoPlat != "none") {
       return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <View style={styles.header}></View>
           <Image
             style={styles.avatar}
@@ -97,7 +97,7 @@ class DevDetails extends Component {
               </View>
             ) : null}
           
-        </View>
+        </ScrollView>
       );
     } else {
       return <Error />;

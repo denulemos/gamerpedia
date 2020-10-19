@@ -63,7 +63,7 @@ class DevDetails extends Component {
               <Text style={styles.juegosTitle}>Juegos realizados</Text>
               <FlatGrid
                 removeClippedSubviews={true}
-                itemDimension={130}
+                itemDimension={200}
                 data={this.state.juegos}
                 style={styles.gridView}
                 spacing={10}
@@ -79,9 +79,11 @@ class DevDetails extends Component {
                     <ImageBackground
                       source={{uri: item.background_image}}
                       style={{flex: 1}}
-                    ></ImageBackground>
-
+                    > 
                     <Text style={styles.itemTitle}>{item.name}</Text>
+                    </ImageBackground>
+
+                   
                   </TouchableOpacity>
                 )}
               />

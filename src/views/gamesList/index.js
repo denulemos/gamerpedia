@@ -48,7 +48,7 @@ class GamesList extends Component {
     if (juegos != "none") {
       return (
         <FlatGrid
-          itemDimension={130}
+          itemDimension={200}
           data={juegos}
           ListFooterComponent={FooterLoading}
           style={styles.gridView}
@@ -70,11 +70,12 @@ class GamesList extends Component {
               <ImageBackground
                 source={{uri: item.background_image}}
                 style={{flex: 1}}
-              ></ImageBackground>
+              >
+ <Text style={styles.itemName}>{item.name}</Text>
 
-              <View>
-                <Text style={styles.itemName}>{item.name}</Text>
-              </View>
+              </ImageBackground>
+
+              
             </TouchableOpacity>
           )}
         />

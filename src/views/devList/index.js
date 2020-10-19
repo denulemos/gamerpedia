@@ -56,7 +56,7 @@ class DevList extends Component {
     if (devs != 'none' ){
        return (
       <FlatGrid
-        itemDimension={130}
+        itemDimension={200}
         data={devs}
         style={styles.gridView}
         ListFooterComponent={FooterLoading}
@@ -73,10 +73,10 @@ class DevList extends Component {
             <ImageBackground
               source={{uri: item.image_background}}
               style={{flex: 1}}
-            ></ImageBackground>
-            <View style={{backgroundColor: "black"}}>
-              <Text style={styles.title}>{item.name}</Text>
-            </View>
+            >
+                <Text style={styles.title}>{item.name}</Text>
+            </ImageBackground>
+           
           </TouchableOpacity>
         )}
       />
