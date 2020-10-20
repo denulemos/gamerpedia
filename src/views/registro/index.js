@@ -19,7 +19,6 @@ const Registro = (props) => {
   const [showAlert, setShowAlert] = useState(false);
   const [mensajePopUp, setMensajePopUp] = useState("");
   const [showAlertEspera, setShowAlertEspera] = useState(false);
-  const [showAlertOk, setShowAlertOk] = useState(false);
   const [hideAlertOk, setHideAlertOk] = useState(false);
 
   const validar = () => {
@@ -54,7 +53,7 @@ const Registro = (props) => {
       .auth()
       .createUserWithEmailAndPassword(email, psw)
       .then(() => {
-        setShowAlertOk(true);
+        
       })
       .catch((error) => {
         if (error.Error === "auth/email-already-in-use") {
@@ -144,22 +143,7 @@ const Registro = (props) => {
             setShowAlert(false);
           }}
         />
-        <AwesomeAlert
-          show={showAlertOk}
-          showProgress={false}
-          title="¡Hola!"
-          message="Registro correcto! Ya podes logearte :)"
-          closeOnTouchOutside={true}
-          closeOnHardwareBackPress={false}
-          showCancelButton={false}
-          showConfirmButton={true}
-          confirmText="Entendido"
-          confirmButtonColor="#DD6B55"
-          onConfirmPressed={() => {
-            setShowAlertOk(false);
-            props.navigation.navigate("Login");
-          }}
-        />
+        
         <AwesomeAlert
           show={showAlertEspera}
           showProgress={false}
