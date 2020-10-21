@@ -8,9 +8,9 @@ import Error from "../../components/error/index";
 import FooterLoading from "../../components/footerLoading/index";
 
 const DevList = (props) => {
-  const [devs, setDevs] = React.useState([]);
-  const [isLoading, setLoading] = React.useState(true);
-  const [page, setPage] = React.useState(1);
+  const [devs, setDevs] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
   
 
   const traerDevelopers = () => {

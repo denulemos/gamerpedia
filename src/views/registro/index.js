@@ -9,7 +9,7 @@ import {
 import {styles} from "./styles";
 import Input from "../../components/TextInput/index";
 import AwesomeAlert from "react-native-awesome-alerts";
-import {firebase} from "../../services/firebaseConfigMio";
+import {firebase} from "../../services/firebaseConfig";
 
 const Registro = (props) => {
   const [email, setEmail] = useState("");
