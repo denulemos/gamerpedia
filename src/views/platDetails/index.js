@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Image,
+  TouchableOpacity,
   ScrollView
 } from "react-native";
 import {styles} from "./styles";
@@ -15,7 +16,7 @@ const DevDetails = (props) => {
   const [objetoPlat, setObjetoPlat] = useState(null);
   const [arrJuegos, setArrJuegos] = useState([]);
   
-
+  
   const getDescripciones = () => {
     GameServices.getPlatformDescription(props.route.params.plat.id)
       .then((results) => {
@@ -36,7 +37,7 @@ const DevDetails = (props) => {
     return arrJuegos.map((item) => {
       return (
         <View key={item.id} style={styles.viewItem}>
-          <Text style={styles.textItem}>{item.name}</Text>
+         <Text style={styles.textItem}>{item.name}</Text>
         </View>
       );
     });

@@ -4,16 +4,19 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  ImageBackground
+  ImageBackground,
+  ActivityIndicator
 } from "react-native";
 import {styles} from "./styles";
 import Input from "../../components/TextInput/index";
 import AwesomeAlert from "react-native-awesome-alerts";
 import {firebase} from "../../services/firebaseConfig";
 
+
 const Login = (props) =>  {
   const [usr, setUsr] = useState("");
   const [psw, setPsw] = useState("");
+  const [isLoading , setLoading] = useState(true);
   const [botonHabilitado, setBoton] = useState(false);
   const [mensajePop, setMensajePop] = useState("");
   const [showAlertStat, setShowAlertStat] = useState(false);
@@ -22,26 +25,29 @@ const Login = (props) =>  {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-       setMensajePop("Bienvenido " + user.email + "!");
-       showAlertEr();
        props.navigation.navigate("GamesList")
+      }
+      else{
+        setLoading(false)
       } 
     });
   });
 
   const login = () => {
-    showAlert();
+    
     firebase.auth()
       .signInWithEmailAndPassword(usr, psw)
       .then((usr) => {
-        hideAlert();
+        setShowAlertStat(false);
+        setMensajePop("Bienvenido " + user.email + "!");
+        setShowAlertError(true);
         props.navigation.navigate("GamesList");
       })
       .catch((err) => {
         
         setMensajePop('Ocurrio un error: ' + err);
-        showAlertEr();
-        hideAlert();
+        setShowAlertError(true);
+        setShowAlertStat(false);
       });
   };
 
@@ -54,16 +60,8 @@ const Login = (props) =>  {
     habilitarBoton();
   };
 
-  const showAlert = () => {
-    setShowAlertStat(true);
-  };
-  const hideAlert = () => {
-    setShowAlertStat(false);
-  };
 
-  const showAlertEr = () => {
-    setShowAlertError(true);
-  };
+
   const hideAlertError = () => {
     setShowAlertError(false);
   };
@@ -73,7 +71,8 @@ const Login = (props) =>  {
       : setBoton(false);
   };
 
-    return (
+  if (!isLoading){
+     return (
       <View style={styles.container}>
         <ImageBackground
           source={require("../../assets/img/wallpaper.jpg")}
@@ -148,6 +147,44 @@ const Login = (props) =>  {
         </ImageBackground>
       </View>
     );
+  }
+  else{
+    return (
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../../assets/img/wallpaper.jpg")}
+          style={styles.image}
+        >
+          <AwesomeAlert
+            show={showAlertError}
+            showProgress={false}
+            message={mensajePop}
+            closeOnTouchOutside={true}
+            closeOnHardwareBackPress={false}
+            showCancelButton={false}
+            showConfirmButton={true}
+            confirmText="Entendido"
+            confirmButtonColor="#DD6B55"
+            onConfirmPressed={() => {
+              hideAlertError();
+              
+            }}
+          />
+          
+          <Image
+            source={require("../../assets/img/mario.png")}
+            style={styles.img}
+          />
+          <Text style={styles.titulo}>Gamerpedia</Text>
+
+          <ActivityIndicator size="large" style={{marginTop: 10}} color="#00ff00" />
+           
+        
+        </ImageBackground>
+      </View>
+    );
+  }
+   
   
 }
 

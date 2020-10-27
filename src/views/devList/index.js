@@ -12,6 +12,10 @@ const DevList = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   
+  useEffect(() => {
+    traerDevelopers();
+    setLoading(false);
+  }, []);
 
   const traerDevelopers = () => {
     GameServices.getDev(page)
@@ -20,22 +24,20 @@ const DevList = (props) => {
           setDevs(
             devs.concat(results.data.results)
           );
+          if (results.data.next == null){
+            setPage(null);
+          }
+          else{
+            setPage(page + 1);
+          }
         }
       })
       .catch((err) => {
         setDevs("none");
       });
-    setPage(page + 1);
+    
   };
-
-  useEffect(() => {
-    traerDevelopers();
-    setLoading(false);
-  }, []);
- 
-
-
-
+  
     if (isLoading) {
       return <Loading />;
     }
@@ -45,9 +47,9 @@ const DevList = (props) => {
           itemDimension={200}
           data={devs}
           style={styles.gridView}
-          ListFooterComponent={FooterLoading}
+          ListFooterComponent={page != null ? FooterLoading : null}
           onEndReachedThreshold={0.5}
-          onEndReached={traerDevelopers}
+          onEndReached={page != null ? traerDevelopers : null}
           spacing={10}
           renderItem={({item}) => (
             <TouchableOpacity

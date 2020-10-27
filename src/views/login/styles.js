@@ -53,6 +53,15 @@ export const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
   },
+  tituloLoading: {
+    fontFamily: 'yoster',
+    fontSize: 40,
+    textShadowColor:'#585858',
+    textShadowOffset:{width: 5, height: 5},
+    textShadowRadius:10,
+    color: 'white',
+    textAlign: 'center',
+  },
   input: {
     alignSelf: 'center'
   },

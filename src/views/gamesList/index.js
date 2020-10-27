@@ -20,6 +20,12 @@ const GamesList = (props) => {
           setJuegos(
             juegos.concat(results.data.results)
           );
+          if (results.data.next == null){
+            setPage(null)
+          }
+          else{
+            setPage(page + 1);
+          }
         }
       })
       .catch((err) => {
@@ -27,7 +33,6 @@ const GamesList = (props) => {
           "none"
       );
       });
-    setPage(page + 1);
   };
 
   useEffect(() => {
@@ -46,12 +51,12 @@ const GamesList = (props) => {
         <FlatGrid
           itemDimension={200}
           data={juegos}
-          ListFooterComponent={FooterLoading}
+          ListFooterComponent={page != null ? FooterLoading : null}
           style={styles.gridView}
           keyExtractor={(item) => item.id.toString()}
           spacing={10}
           onEndReachedThreshold={0.5}
-          onEndReached={traerJuegos}
+          onEndReached={page != null ? traerJuegos : null}
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => {

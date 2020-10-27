@@ -11,23 +11,35 @@ import Loading from "../../components/Loading/index";
 import {FlatGrid} from "react-native-super-grid";
 import GameServices from "../../services/gameService";
 import Error from "../../components/error/index";
+import FooterLoading from "../../components/footerLoading/index";
 
 const DevDetails = (props) => {
-  const [dev, setDev] = useState(null);
-  const [juegos, setJuegos] = useState(null);
+  const [dev, setDev] = useState(props.route.params.dev);
+  const [juegos, setJuegos] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    setDev(props.route.params.dev);
-    GameServices.getGamesForDev(props.route.params.dev.id)
-      .then((results) => {
-        if (results && results.data && results.data.results) {
-          setJuegos(results.data.results);
-        }
-      })
-      .catch((err) => {
-        setJuegos("none");
-      });
+    console.log(props.route.params)
+    traerJuegos();
   }, []);
+
+  const traerJuegos = () => {
+       GameServices.getGamesForDev(dev.id , page)
+       .then((results) => {
+      if (results && results.data && results.data.results) {
+        setJuegos(juegos.concat(results.data.results));
+        if (results.data.next == null){
+          setPage(null);
+        }
+        else{
+          setPage(page + 1);
+        }
+      }
+    })
+    .catch((err) => {
+      setJuegos("none");
+    });
+  };
 
   if (juegos == null) {
     return <Loading />;
@@ -50,6 +62,9 @@ const DevDetails = (props) => {
           itemDimension={200}
           data={juegos}
           style={styles.gridView}
+          ListFooterComponent={page != null ? FooterLoading : null}
+          onEndReachedThreshold={0.5}
+          onEndReached={ page != null ? traerJuegos : null}
           spacing={10}
           renderItem={({item}) => (
             <TouchableOpacity

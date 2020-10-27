@@ -15,7 +15,7 @@ const Error = () => {
           style={{width: 120, height: 120, alignSelf: 'center', marginTop: 50}}
         />
      <Text style={{color: 'white', fontFamily: 'yoster', fontSize: 30}}>Hubo un error</Text>
-     <Text style={{color: 'white', fontFamily: 'OpenSansRegular', margin: 10}}>Es culpa del servicio, intentá de vuelta en un momento</Text>
+     <Text style={{color: 'white', fontFamily: 'OpenSansRegular', margin: 10}}>intentá de vuelta en un momento</Text>
    </View>
   );
   } 
